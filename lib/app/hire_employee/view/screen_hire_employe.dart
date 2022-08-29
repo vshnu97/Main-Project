@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:main_project/app/hire_employee/view/employe_list.dart';
+import 'package:main_project/app/routes/routes.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
 
@@ -83,17 +85,22 @@ class ScreenHireEmployee extends StatelessWidget {
                     LimitedBox(
                       maxHeight: 200,
                       child: ListView.builder(
-                        itemCount: 5,
+                          itemCount: 5,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: ((context, index) {
                             return Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
-                              child: Container(
-                                height: 200,
-                                width: 200,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: kGreyColor),
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                              child: GestureDetector(
+                                onTap: (){
+                                  RoutesScreen().pushScreen(context, const ScreenEmployeeList());
+                                },
+                                child: Container(
+                                  height: 200,
+                                  width: 200,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: kGreyColor),
+                                ),
                               ),
                             );
                           })),
