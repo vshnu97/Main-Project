@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:main_project/app/hire_employee/view/screen_hire_employe.dart';
+import 'package:main_project/app/routes/routes.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
@@ -12,7 +14,6 @@ class ScreenHome extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: kWhiteColor,
         elevation: 0,
-       
         centerTitle: true,
         title: Column(
           children: [
@@ -26,13 +27,12 @@ class ScreenHome extends StatelessWidget {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(18, 0, 18, 0),
+          padding: const EdgeInsets.fromLTRB(18, 0, 18, 12),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Column(
                 children: [
-                  
                   Text(
                     'Find your On-Demand',
                     style: poppins(),
@@ -98,7 +98,7 @@ class HomeContainerWid extends StatelessWidget {
     final heightX = MediaQuery.of(context).size.height;
     return Container(
       width: double.infinity,
-      height: heightX*.175,
+      height: heightX * .17,
       decoration:
           BoxDecoration(borderRadius: BorderRadius.circular(15), color: color),
       child: Padding(
@@ -124,29 +124,34 @@ class HomeContainerWid extends StatelessWidget {
                     ),
                   ],
                 ),
-                Container(
-                  width: 145,
-                  height: 38,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: kWhiteColor),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          'Get started',
-                          style: poppins(
-                              fcolor: kBlackColor,
-                              fsize: 14,
-                              flettrspc: 0,
-                              fweight: FontWeight.w400),
-                        ),
-                        Image.asset(
-                          'assests/arrow.png',
-                        )
-                      ],
+                GestureDetector(
+                  onTap: (){
+                    RoutesScreen().pushScreen(context, const ScreenHireEmployee());
+                  },
+                  child: Container(
+                    width: 145,
+                    height: 38,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: kWhiteColor),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            'Get started',
+                            style: poppins(
+                                fcolor: kBlackColor,
+                                fsize: 14,
+                                flettrspc: 0,
+                                fweight: FontWeight.w400),
+                          ),
+                          Image.asset(
+                            'assests/arrow.png',
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 )
