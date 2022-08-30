@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:main_project/app/home/view/screen_home.dart';
+import 'package:main_project/app/login/login.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 
 void main(List<String> args) {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: kWhiteColor,
       ),
-      home: const ScreenHome(),
+      home: const ScreenLogin(),
     );
   }
 }
