@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:main_project/app/login/viewmodel/login.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
+import 'package:provider/provider.dart';
 
 class ScreenLogin extends StatelessWidget {
   const ScreenLogin({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final prov = Provider.of<HomeProv>(context);
     Size sizez = MediaQuery.of(context).size;
     final size = MediaQuery.of(context).size.width;
     return GestureDetector(
@@ -55,6 +58,7 @@ class ScreenLogin extends StatelessWidget {
                               color: const Color(0xffA3C4CC).withOpacity(.3),
                               borderRadius: BorderRadius.circular(10)),
                           child: TextFormField(
+                            controller: prov.loginEmailController,
                             keyboardType: TextInputType.emailAddress,
                             style: TextStyle(
                                 color: kBlackColor.withOpacity(.8),
@@ -79,6 +83,7 @@ class ScreenLogin extends StatelessWidget {
                               color: const Color(0xffA3C4CC).withOpacity(.3),
                               borderRadius: BorderRadius.circular(10)),
                           child: TextFormField(
+                            controller: prov.passwordController,
                             keyboardType: TextInputType.text,
                             style: TextStyle(
                                 color: kBlackColor.withOpacity(.8),
@@ -97,7 +102,9 @@ class ScreenLogin extends StatelessWidget {
                         SizedBox(
                           width: double.infinity,
                           child: MaterialButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              prov.loginDataBase(context);
+                            },
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(9)),
                             color: kGreenColor,

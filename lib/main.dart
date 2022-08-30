@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:main_project/app/login/login.dart';
+import 'package:main_project/app/login/view/login.dart';
+import 'package:main_project/app/login/viewmodel/login.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
+import 'package:provider/provider.dart';
 
 void main(List<String> args) {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+       ChangeNotifierProvider<HomeProv>(create: ((context) => HomeProv())),
+    ],
+    child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
