@@ -68,3 +68,11 @@ gFontsOleo(
     color: cl,
   );
 }
+redRose({
+  double fsize = 17,
+  fweight = FontWeight.w700,
+  fcolor = kBlackColor,
+}) {
+  return GoogleFonts.redRose(
+      fontSize: fsize, fontWeight: fweight, color: fcolor);
+}

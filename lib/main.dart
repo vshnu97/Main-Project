@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:main_project/app/login/view/login.dart';
+import 'package:main_project/app/hire_employee/view/employe_list.dart';
 import 'package:main_project/app/login/viewmodel/login.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: kWhiteColor,
       ),
-      home: const ScreenLogin(),
+      home: const ScreenEmployeeList(),
     );
   }
 }
