@@ -83,9 +83,12 @@ class ScreenEmployeProfile extends StatelessWidget {
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.end,
-                              children:  [
+                              children: [
                                 const Icon(Icons.location_pin),
-                                Text('Location',style: dmMono(),)
+                                Text(
+                                  'Location',
+                                  style: dmMono(),
+                                )
                               ],
                             ),
                             Text('Price 0.00',
