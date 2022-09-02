@@ -76,3 +76,14 @@ redRose({
   return GoogleFonts.redRose(
       fontSize: fsize, fontWeight: fweight, color: fcolor);
 }
+dmMono(
+    {double fsize = 16,
+    fweight = FontWeight.w500,
+    fcolor = kBlackColor,
+    double flettrspc = 1}) {
+  return GoogleFonts.dmMono(
+      fontSize: fsize,
+      fontWeight: fweight,
+      letterSpacing: flettrspc,
+      color: fcolor);
+}
