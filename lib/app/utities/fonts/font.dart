@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 
-dmSans({
-  double fsize = 23,
-  fweight = FontWeight.w600,
-  fcolor = kBlueColor,
-}) {
+dmSans(
+    {double fsize = 23,
+    fweight = FontWeight.w600,
+    fcolor = kBlueColor,
+   double flettrspc = 0}) {
   return GoogleFonts.dmSans(
-      fontSize: fsize, fontWeight: fweight, color: fcolor);
+      fontSize: fsize,
+      fontWeight: fweight,
+      color: fcolor,
+      letterSpacing: flettrspc);
 }
 
 poppins(
@@ -68,6 +71,7 @@ gFontsOleo(
     color: cl,
   );
 }
+
 redRose({
   double fsize = 17,
   fweight = FontWeight.w700,
@@ -76,12 +80,25 @@ redRose({
   return GoogleFonts.redRose(
       fontSize: fsize, fontWeight: fweight, color: fcolor);
 }
+
 dmMono(
     {double fsize = 16,
     fweight = FontWeight.w500,
     fcolor = kBlackColor,
     double flettrspc = 1}) {
   return GoogleFonts.dmMono(
+      fontSize: fsize,
+      fontWeight: fweight,
+      letterSpacing: flettrspc,
+      color: fcolor);
+}
+
+roboto(
+    {double fsize = 16,
+    fweight = FontWeight.w600,
+    fcolor = kGreyColor,
+    double flettrspc = 1}) {
+  return GoogleFonts.roboto(
       fontSize: fsize,
       fontWeight: fweight,
       letterSpacing: flettrspc,
