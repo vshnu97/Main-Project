@@ -143,7 +143,7 @@ class ScreenEmployePaymentProfile extends StatelessWidget {
                 ),
                 kheight20,
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal:5 ),
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

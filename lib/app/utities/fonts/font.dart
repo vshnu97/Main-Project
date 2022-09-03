@@ -41,7 +41,7 @@ ptMono(
 gFontsLoginbottom(
     {Color dcCl = kWhiteColor,
     var td = TextDecoration.none,
-    double sz = 12,
+    double sz = 11,
     double ls = 1,
     FontWeight fw = FontWeight.w600,
     Color cl = kBlackColor}) {

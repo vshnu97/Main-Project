@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:main_project/app/login/view/widgets/bottom_sheet.dart';
 import 'package:main_project/app/login/viewmodel/login.dart';
+import 'package:main_project/app/routes/routes.dart';
+import 'package:main_project/app/signup/view/screen_signup.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
@@ -26,29 +29,46 @@ class ScreenLogin extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                  flex: 2,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assests/imgLogin.png'),
-                            fit: BoxFit.cover)),
-                    width: double.infinity,
+                  flex: 3,
+                  child: Stack(
+                    children: [
+                      Container(
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('assests/imgLogin.png'),
+                                fit: BoxFit.cover)),
+                        width: double.infinity,
+                      ),
+                      Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                'On-Demand',
+                                style: roboto(
+                                  fcolor: kGreenColor,
+                                  fsize: 25,
+                                  fweight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                'HIRE  |  POST  |  LEND  |  RENT',
+                                style: gFontsLoginbottom(
+                                    cl: kBlackColor.withOpacity(.5)),
+                              )
+                            ],
+                          ))
+                    ],
                   ),
                 ),
                 Expanded(
-                  flex: 3,
+                  flex: 5,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
-                          "LogIn",
-                          style: dmSans(
-                              fsize: 25,
-                              fcolor: kGreenColor,
-                              fweight: FontWeight.w700),
-                        ),
                         Container(
                           height: sizez.width / 7,
                           width: double.infinity,
@@ -111,7 +131,7 @@ class ScreenLogin extends StatelessWidget {
                             child: const Padding(
                               padding: EdgeInsets.symmetric(vertical: 16),
                               child: Text(
-                                'Continue',
+                                'Login',
                                 style: TextStyle(
                                     color: kWhiteColor,
                                     fontSize: 20,
@@ -119,6 +139,32 @@ class ScreenLogin extends StatelessWidget {
                               ),
                             ),
                           ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Create a new account?",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: kBlackColor.withOpacity(.4))),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                RoutesScreen()
+                                    .pushScreen(context, const ScreenSignUp());
+                              },
+                              child: const Text(
+                                "Sign Up",
+                                style: TextStyle(
+                                    color: kGreenColor,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            )
+                          ],
                         ),
                         Row(
                           children: [
@@ -198,7 +244,7 @@ class ScreenLogin extends StatelessWidget {
                                                   BottomSheetContainerWid(
                                                     image: 'assests/gm.png',
                                                     title:
-                                                        'Continue with Email',
+                                                        'Continue with Gmail ',
                                                   ),
                                                 ],
                                               ),
@@ -242,35 +288,5 @@ class ScreenLogin extends StatelessWidget {
             ),
           )),
     );
-  }
-}
-
-class BottomSheetContainerWid extends StatelessWidget {
-  final String image;
-  final String title;
-  const BottomSheetContainerWid(
-      {Key? key, required this.image, required this.title})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        height: 50,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: kGreyColor.withOpacity(.3))),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(image),
-            const SizedBox(
-              width: 10,
-            ),
-            Text(
-              title,
-              style: gFontsOleo(),
-            )
-          ],
-        ));
   }
 }
