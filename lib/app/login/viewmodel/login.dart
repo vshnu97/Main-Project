@@ -26,4 +26,9 @@ class HomeProv extends ChangeNotifier {
       log(e.toString());
     }
   }
+   bool isObscure = true;
+   passwordHide() {
+    isObscure = !isObscure;
+    notifyListeners();
+  }
 }

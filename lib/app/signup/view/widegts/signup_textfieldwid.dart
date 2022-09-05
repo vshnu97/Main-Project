@@ -10,13 +10,13 @@ class SignUpTextFieldWid extends StatelessWidget {
   final TextInputType inputType;
   final int? maxlength;
 
-  const SignUpTextFieldWid({
+  SignUpTextFieldWid({
     Key? key,
     required this.hintText,
     required this.iconprefix,
     required this.inputType,
     this.maxlength,
-    this.contoller,
+    required this.contoller,
     required this.sizez,
   }) : super(key: key);
 
