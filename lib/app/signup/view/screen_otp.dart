@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:main_project/app/signup/viewmodel/otp.prov.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
+import 'package:provider/provider.dart';
 
 class ScreenOtp extends StatelessWidget {
   const ScreenOtp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final prov = Provider.of<OtpProv>(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: kWhiteColor,
         elevation: 0,
@@ -18,7 +21,10 @@ class ScreenOtp extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: Column(
           children: [
-            Image.asset('assests/ottp.png',height: 250,),
+            Image.asset(
+              'assests/ottp.png',
+              height: 250,
+            ),
             Text(
               'OTP Verification',
               style: dmSans(
@@ -31,43 +37,53 @@ class ScreenOtp extends StatelessWidget {
             const Text('We sent your code to +91 XXXX XX ****',
                 style: TextStyle(fontSize: 15)),
             kheight5,
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Text(
-            //       'This will expire in ',
-            //       style: roboto(flettrspc: 0),
-            //     ),
-            //     // TweenAnimationBuilder(
-            //     //     tween: Tween(begin: 50.0, end: 0),
-            //     //     duration: const Duration(seconds: 50),
-            //     //     builder: (context, value, child) => Text(
-            //     //           "00:$value",
-            //     //           style: roboto(fcolor: Colors.red),
-            //     //         ))
-            //   ],
-            // ),
             kheight20,
             Row(
-              children: const [
-                Expanded(flex: 1, child: OtpFieldWid()),
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: OtpFieldWid(
+                      controller: prov.otp1,
+                    )),
                 kwidth,
-                Expanded(flex: 1, child: OtpFieldWid()),
+                Expanded(
+                    flex: 1,
+                    child: OtpFieldWid(
+                      controller: prov.otp2,
+                    )),
                 kwidth,
-                Expanded(flex: 1, child: OtpFieldWid()),
+                Expanded(
+                    flex: 1,
+                    child: OtpFieldWid(
+                      controller: prov.otp3,
+                    )),
                 kwidth,
-                Expanded(flex: 1, child: OtpFieldWid()),
+                Expanded(
+                    flex: 1,
+                    child: OtpFieldWid(
+                      controller: prov.otp4,
+                    )),
                 kwidth,
-                Expanded(flex: 1, child: OtpFieldWid()),
+                Expanded(
+                    flex: 1,
+                    child: OtpFieldWid(
+                      controller: prov.otp5,
+                    )),
                 kwidth,
-                Expanded(flex: 1, child: OtpFieldWid())
+                Expanded(
+                    flex: 1,
+                    child: OtpFieldWid(
+                      controller: prov.otp6,
+                    ))
               ],
             ),
             kheight30,
             SizedBox(
               width: double.infinity,
               child: MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.read<OtpProv>().otdDataBse();
+                },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(9)),
                 color: kGreenColor,
@@ -91,9 +107,8 @@ class ScreenOtp extends StatelessWidget {
 }
 
 class OtpFieldWid extends StatelessWidget {
-  const OtpFieldWid({
-    Key? key,
-  }) : super(key: key);
+  final TextEditingController controller;
+  const OtpFieldWid({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -105,19 +120,19 @@ class OtpFieldWid extends StatelessWidget {
           FocusScope.of(context).previousFocus();
         }
       },
+      controller: controller,
       textAlign: TextAlign.center,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
       maxLength: 1,
-      style: GoogleFonts.viga(
-          color: kBlackColor, fontWeight: FontWeight.w500, fontSize: 30),
+      style: viga(fcolor: kBlackColor, fweight: FontWeight.w500, fsize: 30),
       decoration: InputDecoration(
           counterText: "",
           hintText: '0',
-          hintStyle: GoogleFonts.viga(
-              color: kBlackColor.withOpacity(.3),
-              fontWeight: FontWeight.w500,
-              fontSize: 30),
+          hintStyle: viga(
+              fcolor: kBlackColor.withOpacity(.3),
+              fweight: FontWeight.w500,
+              fsize: 30),
           focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: kGreenColor))),
     );

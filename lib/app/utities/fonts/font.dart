@@ -6,7 +6,7 @@ dmSans(
     {double fsize = 23,
     fweight = FontWeight.w600,
     fcolor = kBlueColor,
-   double flettrspc = 0}) {
+    double flettrspc = 0}) {
   return GoogleFonts.dmSans(
       fontSize: fsize,
       fontWeight: fweight,
@@ -99,6 +99,18 @@ roboto(
     fcolor = kGreyColor,
     double flettrspc = 1}) {
   return GoogleFonts.roboto(
+      fontSize: fsize,
+      fontWeight: fweight,
+      letterSpacing: flettrspc,
+      color: fcolor);
+}
+
+viga(
+    {double fsize = 16,
+    fweight = FontWeight.w600,
+    fcolor = kGreyColor,
+    double flettrspc = 1}) {
+  return GoogleFonts.viga(
       fontSize: fsize,
       fontWeight: fweight,
       letterSpacing: flettrspc,

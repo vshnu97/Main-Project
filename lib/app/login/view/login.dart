@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:main_project/app/login/view/widgets/bottom_sheet.dart';
+import 'package:main_project/app/login/view/widgets/button_wid.dart';
+import 'package:main_project/app/login/view/widgets/create_reg.dart';
+import 'package:main_project/app/login/view/widgets/divider_wid.dart';
+import 'package:main_project/app/login/view/widgets/login_textfield.dart';
+import 'package:main_project/app/login/view/widgets/privcy_wid.dart';
 import 'package:main_project/app/login/viewmodel/login.dart';
-import 'package:main_project/app/routes/routes.dart';
 import 'package:main_project/app/signup/view/screen_signup.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
@@ -29,7 +33,7 @@ class ScreenLogin extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: Stack(
                     children: [
                       Container(
@@ -69,122 +73,40 @@ class ScreenLogin extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Container(
-                          height: sizez.width / 7,
-                          width: double.infinity,
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.only(right: sizez.width / 30),
-                          decoration: BoxDecoration(
-                              color: const Color(0xffA3C4CC).withOpacity(.3),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: TextFormField(
-                            controller: prov.loginEmailController,
-                            keyboardType: TextInputType.emailAddress,
-                            style: TextStyle(
-                                color: kBlackColor.withOpacity(.8),
-                                letterSpacing: .8),
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              prefixIcon: Icon(Icons.email,
-                                  color: kBlackColor.withOpacity(.7)),
-                              hintText: 'Enter your email',
-                              hintStyle: TextStyle(
-                                  color: kBlackColor.withOpacity(.5),
-                                  fontSize: 16),
-                            ),
-                          ),
+                        LoginTexfieldWidget(
+                          nexT: TextInputAction.next,
+                          sizez: sizez,
+                          prov: prov,
+                          controller: prov.loginEmailController,
+                          hinttext: 'Enter your email',
+                          inputTextType: TextInputType.emailAddress,
+                          prefixicon: Icons.email,
+                          isoBsecure: false,
                         ),
-                        Container(
-                          height: sizez.width / 7,
-                          width: double.infinity,
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.only(right: sizez.width / 30),
-                          decoration: BoxDecoration(
-                              color: const Color(0xffA3C4CC).withOpacity(.3),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: TextFormField(
-                            controller: prov.passwordController,
-                            keyboardType: TextInputType.text,
-                            style: TextStyle(
-                                color: kBlackColor.withOpacity(.8),
-                                letterSpacing: .8),
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              prefixIcon: Icon(Icons.password,
-                                  color: kBlackColor.withOpacity(.7)),
-                              hintText: 'Enter your password',
-                              hintStyle: TextStyle(
-                                  color: kBlackColor.withOpacity(.5),
-                                  fontSize: 16),
-                            ),
-                          ),
+                        LoginTexfieldWidget(
+                          nexT: TextInputAction.done,
+                          isoBsecure: context.read<HomeProv>().isObscure,
+                          sizez: sizez,
+                          prov: prov,
+                          controller: prov.passwordController,
+                          hinttext: 'Enter your password',
+                          inputTextType: TextInputType.text,
+                          prefixicon: Icons.password,
+                          suffexicon1: Icons.visibility,
+                          suffexicon2: Icons.visibility_off,
                         ),
-                        SizedBox(
-                          width: double.infinity,
-                          child: MaterialButton(
-                            onPressed: () {
-                              prov.loginDataBase(context);
-                            },
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(9)),
-                            color: kGreenColor,
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 16),
-                              child: Text(
-                                'Login',
-                                style: TextStyle(
-                                    color: kWhiteColor,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
+                        SignInLogInButtonWid(
+                          prov: prov,
+                          onClick: () {
+                            prov.loginDataBase(context);
+                          },
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Create a new account?",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: kBlackColor.withOpacity(.4))),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                RoutesScreen()
-                                    .pushScreen(context, const ScreenSignUp());
-                              },
-                              child: const Text(
-                                "Sign Up",
-                                style: TextStyle(
-                                    color: kGreenColor,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                            )
-                          ],
+                        const CreateOrRegisterWid(
+                          screen: ScreenSignUp(),
+                          subtitle: 'Sign Up',
+                          title: 'Create a new account ?',
                         ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: (size / 2.2),
-                              child: const Divider(),
-                            ),
-                            Text(
-                              "Or",
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w800,
-                                  color: kGreyColor.withOpacity(.6)),
-                            ),
-                            SizedBox(
-                              width: (size / 2.5),
-                              child: const Divider(),
-                            ),
-                          ],
-                        ),
+                        DividerWid(size: size),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -192,8 +114,8 @@ class ScreenLogin extends StatelessWidget {
                               radius: 10,
                               onTap: () {},
                               child: Container(
-                                height: 50,
-                                width: 50,
+                                height: size * .13,
+                                width: size * .13,
                                 decoration: BoxDecoration(
                                   color: kWhiteColor,
                                   borderRadius: BorderRadius.circular(25),
@@ -215,11 +137,10 @@ class ScreenLogin extends StatelessWidget {
                                         top: Radius.circular(10.0),
                                       ),
                                     ),
-                                    backgroundColor:
-                                        kWhiteColor, // <-- SEE HERE
+                                    backgroundColor: kWhiteColor,
                                     builder: (context) {
                                       return SizedBox(
-                                        height: 160,
+                                        height: size * .408,
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -255,8 +176,8 @@ class ScreenLogin extends StatelessWidget {
                                     });
                               },
                               child: Container(
-                                height: 50,
-                                width: 50,
+                                height: size * .13,
+                                width: size * .13,
                                 decoration: BoxDecoration(
                                   color: kWhiteColor,
                                   borderRadius: BorderRadius.circular(25),
@@ -268,18 +189,7 @@ class ScreenLogin extends StatelessWidget {
                             )
                           ],
                         ),
-                        Column(
-                          children: [
-                            Text(
-                              'By continuing, you agreed to our',
-                              style: gFontsLoginbottom(),
-                            ),
-                            Text(
-                              'Terms and Privacy Policy',
-                              style: gFontsLoginbottom(),
-                            ),
-                          ],
-                        ),
+                        const PrivacyWid(),
                       ],
                     ),
                   ),
