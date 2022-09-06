@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:main_project/app/login/viewmodel/login.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 
 class SignInLogInButtonWid extends StatelessWidget {
   VoidCallback onClick;
+  String title;
   SignInLogInButtonWid({
     Key? key,
-    required this.prov,
+    required this.title,
     required this.onClick,
   }) : super(key: key);
 
-  final HomeProv prov;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +22,11 @@ class SignInLogInButtonWid extends StatelessWidget {
        
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
         color: kGreenColor,
-        child: const Padding(
-          padding: EdgeInsets.symmetric(vertical: 16),
+        child:  Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
           child: Text(
-            'Login',
-            style: TextStyle(
+            title,
+            style: const TextStyle(
                 color: kWhiteColor, fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),

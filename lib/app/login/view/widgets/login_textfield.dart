@@ -13,7 +13,7 @@ class LoginTexfieldWidget extends StatelessWidget {
   bool isoBsecure;
   final Size sizez;
   final HomeProv prov;
-  TextInputAction? nexT;
+  
 
   LoginTexfieldWidget({
     Key? key,
@@ -25,11 +25,9 @@ class LoginTexfieldWidget extends StatelessWidget {
     required this.prefixicon,
     this.suffexicon1,
     this.suffexicon2,
-    this.nexT,
+  
     required this.isoBsecure,
   }) : super(key: key);
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +40,7 @@ class LoginTexfieldWidget extends StatelessWidget {
           color: const Color(0xffA3C4CC).withOpacity(.3),
           borderRadius: BorderRadius.circular(10)),
       child: TextFormField(
-        textInputAction: nexT,
+      
         obscureText: isoBsecure,
         controller: controller,
         keyboardType: inputTextType,
