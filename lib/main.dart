@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:main_project/app/login/view/login.dart';
+import 'package:main_project/app/hire_employee/need_job/view/screen_needjob.dart';
 import 'package:main_project/app/login/viewmodel/login.dart';
 import 'package:main_project/app/signup/viewmodel/otp.prov.dart';
 import 'package:main_project/app/signup/viewmodel/signup_prov.dart';
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: kWhiteColor,
       ),
-      home: const ScreenLogin(),
+      home: const ScreenNeedJob(),
     );
   }
 }

@@ -17,6 +17,8 @@ class ScreenLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FocusNode nameFocus = FocusNode();
+    final FocusNode passwFocus = FocusNode();
     final prov = Provider.of<HomeProv>(context);
     Size sizez = MediaQuery.of(context).size;
     final size = MediaQuery.of(context).size.width;
@@ -50,9 +52,9 @@ class ScreenLogin extends StatelessWidget {
                             children: [
                               Text(
                                 'On-Demand',
-                                style: roboto(
+                                style: viga(
                                   fcolor: kGreenColor,
-                                  fsize: 25,
+                                  fsize: 30,
                                   fweight: FontWeight.bold,
                                 ),
                               ),
@@ -74,7 +76,6 @@ class ScreenLogin extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         LoginTexfieldWidget(
-                          nexT: TextInputAction.next,
                           sizez: sizez,
                           prov: prov,
                           controller: prov.loginEmailController,
@@ -84,7 +85,6 @@ class ScreenLogin extends StatelessWidget {
                           isoBsecure: false,
                         ),
                         LoginTexfieldWidget(
-                          nexT: TextInputAction.done,
                           isoBsecure: context.read<HomeProv>().isObscure,
                           sizez: sizez,
                           prov: prov,
@@ -96,10 +96,10 @@ class ScreenLogin extends StatelessWidget {
                           suffexicon2: Icons.visibility_off,
                         ),
                         SignInLogInButtonWid(
-                          prov: prov,
                           onClick: () {
                             prov.loginDataBase(context);
                           },
+                          title: 'Login',
                         ),
                         const CreateOrRegisterWid(
                           screen: ScreenSignUp(),
