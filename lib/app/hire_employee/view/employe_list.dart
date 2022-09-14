@@ -18,9 +18,14 @@ class ScreenEmployeeList extends StatelessWidget {
             style: poppins(fcolor: kBlackColor, fsize: 16),
           ),
           elevation: 0,
-          leading: const Icon(
-            Icons.arrow_back_ios,
-            color: kBlackColor,
+          leading: InkWell(
+            onTap: () {
+              Routes.popscreen();
+            },
+            child: const Icon(
+              Icons.arrow_back_ios,
+              color: kBlackColor,
+            ),
           )),
       body: ListView.separated(
         physics: const BouncingScrollPhysics(),
@@ -86,8 +91,9 @@ class ScreenEmployeeList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         InkWell(
-                          onTap: (){
-                            RoutesScreen().pushScreen(context, const ScreenEmployeProfile());
+                          onTap: () {
+                            //RoutesScreen().pushScreen(context, const ScreenEmployeProfile());
+                            Routes.push(screen: const ScreenEmployeProfile());
                           },
                           child: Container(
                             height: 30,

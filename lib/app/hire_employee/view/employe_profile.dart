@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:main_project/app/hire_employee/view/employe_afterpay.dart';
+import 'package:main_project/app/routes/routes.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
@@ -13,9 +15,14 @@ class ScreenEmployeProfile extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: kWhiteColor,
         elevation: 0,
-        leading: const Icon(
-          Icons.arrow_back_ios,
-          color: Colors.black,
+        leading: InkWell(
+          onTap: () {
+            Routes.popscreen();
+          },
+          child: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
         ),
       ),
       body: Padding(
@@ -119,23 +126,29 @@ class ScreenEmployeProfile extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Container(
-                  height: heightX * .06,
-                  width: heightX * .29,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: kGreenColor),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        'Make Payment',
-                        style: poppins(fsize: 16, fcolor: kWhiteColor),
-                      ),
-                      Image.asset(
-                        'assests/arrwG.png',
-                      )
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    // RoutesScreen().pushScreen(context, const ScreenEmployePaymentProfile());
+                    Routes.push(screen: const ScreenEmployePaymentProfile());
+                  },
+                  child: Container(
+                    height: heightX * .06,
+                    width: heightX * .29,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: kGreenColor),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          'Make Payment',
+                          style: poppins(fsize: 16, fcolor: kWhiteColor),
+                        ),
+                        Image.asset(
+                          'assests/arrwG.png',
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],

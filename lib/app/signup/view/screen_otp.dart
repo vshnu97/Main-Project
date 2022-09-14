@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:main_project/app/signup/viewmodel/otp.prov.dart';
+import 'package:main_project/app/home/view/screen_home.dart';
+import 'package:main_project/app/routes/routes.dart';
+import 'package:main_project/app/signup/view_model/otp.prov.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
@@ -82,7 +84,9 @@ class ScreenOtp extends StatelessWidget {
               width: double.infinity,
               child: MaterialButton(
                 onPressed: () {
-                  context.read<OtpProv>().otdDataBse();
+                 // context.read<OtpProv>().otdDataBse();
+                 // RoutesScreen().pushScreen(context, const ScreenHome());
+                 Routes.push(screen: const ScreenHome());
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(9)),
@@ -128,7 +132,7 @@ class OtpFieldWid extends StatelessWidget {
       style: viga(fcolor: kBlackColor, fweight: FontWeight.w500, fsize: 30),
       decoration: InputDecoration(
           counterText: "",
-          hintText: '0',
+          hintText: '*',
           hintStyle: viga(
               fcolor: kBlackColor.withOpacity(.3),
               fweight: FontWeight.w500,

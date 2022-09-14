@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:main_project/app/home/view/screen_home.dart';
+import 'package:main_project/app/routes/routes.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
@@ -25,9 +27,15 @@ class ScreenEmployePaymentProfile extends StatelessWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Spacer(),
-                    Icon(Icons.home, color: kWhiteColor)
+                  children: [
+                    const Spacer(),
+                    InkWell(
+                        onTap: () {
+                          // RoutesScreen()
+                          //     .pushScreen(context, const ScreenHome());
+                          Routes.push(screen: const ScreenHome());
+                        },
+                        child: const Icon(Icons.home, color: kWhiteColor))
                   ],
                 ),
                 kheight15,

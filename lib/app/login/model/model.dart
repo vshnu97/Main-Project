@@ -1,8 +1,8 @@
 class LoginModelClass {
-  String email;
-  String password;
+  String? email;
+  String? password;
 
-  LoginModelClass({required this.email, required this.password});
+  LoginModelClass({ this.email,  this.password});
 
   Map<String, dynamic> toJson() => {
         'email': email,

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:main_project/app/domain/api_end_points.dart';
 import 'package:main_project/app/routes/routes.dart';
 import 'package:main_project/app/signup/model/signup_model.dart';
 import 'package:main_project/app/signup/view/screen_otp.dart';
@@ -26,7 +27,7 @@ class SignUpProv extends ChangeNotifier {
     notifyListeners();
   }
 
-  final url = 'http://10.0.2.2:8000/user/register/';
+  final dio = Dio(BaseOptions(baseUrl: Url.baseUrl));
   signInDataBase(BuildContext context) async {
     String psswrd2 = signUppasswrdController.text.trim();
     String psswrd1 = signUpConfrmController.text.trim();
@@ -58,11 +59,13 @@ class SignUpProv extends ChangeNotifier {
           password: psswrd2,
           confirmPassword: psswrd1);
       try {
-        Response response = await Dio().post(url, data: dataQ.toJson());
+        Response response = await dio.post(Url.signUp, data: dataQ.toJson());
 
         if (response.statusCode! >= 200 || response.statusCode! <= 299) {
           log(response.data.toString());
-          RoutesScreen().pushScreen(context, const ScreenOtp());
+          //  RoutesScreen().pushScreen(context, const ScreenOtp());
+          Routes.push(screen: const ScreenOtp());
+          disposeSignupPage(context);
         } else {
           pop(context, response.statusCode.toString());
         }

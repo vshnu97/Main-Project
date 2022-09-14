@@ -24,10 +24,15 @@ class ScreenHireEmployee extends StatelessWidget {
                           bottomLeft: Radius.circular(25),
                           bottomRight: Radius.circular(25))),
                 ),
-                const Positioned(
+                Positioned(
                     left: 10,
                     top: 10,
-                    child: Icon(Icons.arrow_back_ios, color: kWhiteColor)),
+                    child: InkWell(
+                        onTap: () {
+                          Routes.popscreen();
+                        },
+                        child: const Icon(Icons.arrow_back_ios,
+                            color: kWhiteColor))),
                 Positioned(
                   top: 105,
                   left: 50,
@@ -59,16 +64,23 @@ class ScreenHireEmployee extends StatelessWidget {
                     ScrollConfiguration(
                       behavior: MyBehavior(),
                       child: GridView.count(
+                          physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           crossAxisCount: 3,
                           mainAxisSpacing: 15,
                           childAspectRatio: .92,
                           crossAxisSpacing: 22,
                           children: List<Widget>.generate(6, (index) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: kGreyColor),
+                            return GestureDetector(
+                              onTap: () {
+                                // RoutesScreen().pushScreen(context, const ScreenEmployeeList());
+                                Routes.push(screen: const ScreenEmployeeList());
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: kGreyColor),
+                              ),
                             );
                           })),
                     ),
@@ -79,7 +91,7 @@ class ScreenHireEmployee extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Categories',
+                      'Recommended',
                     ),
                     kheight15,
                     LimitedBox(
@@ -89,10 +101,13 @@ class ScreenHireEmployee extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           itemBuilder: ((context, index) {
                             return Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
                               child: GestureDetector(
-                                onTap: (){
-                                  RoutesScreen().pushScreen(context, const ScreenEmployeeList());
+                                onTap: () {
+                                  // RoutesScreen().pushScreen(
+                                  //     context, const ScreenEmployeeList());
+                                  Routes.push(
+                                      screen: const ScreenEmployeeList());
                                 },
                                 child: Container(
                                   height: 200,

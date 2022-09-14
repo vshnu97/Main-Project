@@ -28,7 +28,8 @@ class CreateOrRegisterWid extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            RoutesScreen().pushScreen(context, screen);
+           // RoutesScreen().pushScreen(context, screen);
+           Routes.pushreplace(screen: screen);
           },
           child: Text(
             subtitle,
