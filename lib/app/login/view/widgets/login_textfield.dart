@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:main_project/app/login/viewmodel/login.dart';
+import 'package:main_project/app/login/view_model/login.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +13,6 @@ class LoginTexfieldWidget extends StatelessWidget {
   bool isoBsecure;
   final Size sizez;
   final HomeProv prov;
-  
 
   LoginTexfieldWidget({
     Key? key,
@@ -25,7 +24,6 @@ class LoginTexfieldWidget extends StatelessWidget {
     required this.prefixicon,
     this.suffexicon1,
     this.suffexicon2,
-  
     required this.isoBsecure,
   }) : super(key: key);
 
@@ -40,7 +38,6 @@ class LoginTexfieldWidget extends StatelessWidget {
           color: const Color(0xffA3C4CC).withOpacity(.3),
           borderRadius: BorderRadius.circular(10)),
       child: TextFormField(
-      
         obscureText: isoBsecure,
         controller: controller,
         keyboardType: inputTextType,

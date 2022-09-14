@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:main_project/app/hire_employee/view/screen_hire_employe.dart';
+import 'package:main_project/app/lend_tools/view/screen_lend.dart';
+import 'package:main_project/app/need_job/view/screen_needjob.dart';
+import 'package:main_project/app/rent_tools/view/screen_rent.dart';
 import 'package:main_project/app/routes/routes.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
@@ -48,29 +51,29 @@ class ScreenHome extends StatelessWidget {
                   )
                 ],
               ),
-              const HomeContainerWid(
+               const HomeContainerWid(
                 description: 'Get the job from your\nneighbourhood itself.',
                 image: 'assests/needJobb.png',
                 title: 'Need a Job ?',
-                color: kYellowHomeColor,
+                color: kYellowHomeColor, screen: ScreenNeedJob(),
               ),
-              const HomeContainerWid(
+               const HomeContainerWid(
                 description: 'Get the best worker\nfrom your neighbourhood.',
                 image: 'assests/needEmploye.png',
                 title: 'Need a Worker ?',
-                color: kBlueHomeColor,
+                color: kBlueHomeColor, screen: ScreenHireEmployee(),
               ),
-              const HomeContainerWid(
+               const HomeContainerWid(
                 description: 'Get the job from your\nneighbourhood itself.',
                 image: 'assests/kkk.png',
                 title: 'Looking for rent ?',
-                color: kPinkHomeColor,
+                color: kPinkHomeColor, screen:ScreenRentTools(),
               ),
-              const HomeContainerWid(
+               const HomeContainerWid(
                 description: 'Get the job from your\nneighbourhood itself.',
                 image: 'assests/lend.png',
                 title: 'Lend your tools ?',
-                color: kGreenHomeColor,
+                color: kGreenHomeColor, screen: ScreenLendTools(),
               )
             ],
           ),
@@ -85,11 +88,13 @@ class HomeContainerWid extends StatelessWidget {
   final String title;
   final String description;
   final String image;
+  final Widget screen;
   const HomeContainerWid(
       {Key? key,
       required this.description,
       required this.image,
       required this.title,
+      required this.screen,
       required this.color})
       : super(key: key);
 
@@ -126,7 +131,8 @@ class HomeContainerWid extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: (){
-                    RoutesScreen().pushScreen(context, const ScreenHireEmployee());
+                    // RoutesScreen().pushScreen(context, const ScreenHireEmployee());
+                    Routes.push(screen: screen);
                   },
                   child: Container(
                     width: 145,

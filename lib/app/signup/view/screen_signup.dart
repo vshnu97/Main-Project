@@ -4,10 +4,11 @@ import 'package:main_project/app/login/view/widgets/button_wid.dart';
 import 'package:main_project/app/login/view/widgets/create_reg.dart';
 import 'package:main_project/app/login/view/widgets/divider_wid.dart';
 import 'package:main_project/app/login/view/widgets/privcy_wid.dart';
+import 'package:main_project/app/routes/routes.dart';
+import 'package:main_project/app/signup/view/screen_otp.dart';
 import 'package:main_project/app/signup/view/widegts/signup_textfieldwid.dart';
-import 'package:main_project/app/signup/viewmodel/signup_prov.dart';
+import 'package:main_project/app/signup/view_model/signup_prov.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
-import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
 import 'package:provider/provider.dart';
 
@@ -33,22 +34,17 @@ class ScreenSignUp extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                  flex: 1,
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Stack(
-                      children: [
-                        Row(
-                          children: [Image.asset('assests/man.png'),
-                          Text('Create account',style: viga(fcolor: kGreenColor,fsize: 25),)
-                          ],
-                        ),
-                      ],
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
+                    child: Image.asset(
+                      'assests/iop.png',
+                      width: double.infinity,
                     ),
                   ),
                 ),
                 Expanded(
-                    flex: 4,
+                    flex: 6,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 18),
                       child: Column(
@@ -80,9 +76,15 @@ class ScreenSignUp extends StatelessWidget {
                             size: sizez,
                           ),
                           ConfirmPasswTextField(size: sizez),
-                          SignInLogInButtonWid(onClick: () {
-                            prov.signInDataBase(context);
-                          }, title: 'Signin',),
+                          kheight5,
+                          SignInLogInButtonWid(
+                            onClick: () {
+                              // prov.signInDataBase(context);
+                              // RoutesScreen().pushScreen(context, const ScreenOtp());
+                              Routes.push(screen: const ScreenOtp());
+                            },
+                            title: 'Signin',
+                          ),
                           const CreateOrRegisterWid(
                               screen: ScreenLogin(),
                               subtitle: 'Log In',

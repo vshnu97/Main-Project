@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:main_project/app/signup/viewmodel/signup_prov.dart';
+import 'package:main_project/app/signup/view_model/signup_prov.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:provider/provider.dart';
 
