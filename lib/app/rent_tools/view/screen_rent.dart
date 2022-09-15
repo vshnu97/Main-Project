@@ -100,7 +100,7 @@ class ScreenRentTools extends StatelessWidget {
                   kheight,
                   const PopularToolsListWidget()
                 ],
-              )
+              ),
             ],
           ),
         ),
@@ -108,7 +108,3 @@ class ScreenRentTools extends StatelessWidget {
     );
   }
 }
-
-
-
-
