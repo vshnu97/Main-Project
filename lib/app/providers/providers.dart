@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:main_project/app/lend_tools/view_model/lend_provider.dart';
 import 'package:main_project/app/login/view_model/login.dart';
 import 'package:main_project/app/signup/view_model/otp.prov.dart';
 import 'package:main_project/app/signup/view_model/signup_prov.dart';
@@ -12,6 +13,7 @@ class Providers {
         ChangeNotifierProvider<HomeProv>(create: ((context) => HomeProv())),
         ChangeNotifierProvider<SignUpProv>(create: ((context) => SignUpProv())),
         ChangeNotifierProvider<OtpProv>(create: ((context) => OtpProv())),
+        ChangeNotifierProvider<LendProvider>(create: ((context) => LendProvider())),
       ],
       child: const MyApp(),
     );

@@ -16,6 +16,7 @@ class ScreenOtp extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: kWhiteColor,
         elevation: 0,
       ),
@@ -84,9 +85,9 @@ class ScreenOtp extends StatelessWidget {
               width: double.infinity,
               child: MaterialButton(
                 onPressed: () {
-                 // context.read<OtpProv>().otdDataBse();
-                 // RoutesScreen().pushScreen(context, const ScreenHome());
-                 Routes.push(screen: const ScreenHome());
+                  // context.read<OtpProv>().otdDataBse();
+                  // RoutesScreen().pushScreen(context, const ScreenHome());
+                  Routes.push(screen: const ScreenHome());
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(9)),
