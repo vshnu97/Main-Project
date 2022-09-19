@@ -1,3 +1,5 @@
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:main_project/app/login/view/widgets/bottom_sheet.dart';
 import 'package:main_project/app/login/view/widgets/button_wid.dart';
@@ -93,9 +95,24 @@ class ScreenLogin extends StatelessWidget {
                             suffexicon1: Icons.visibility,
                             suffexicon2: Icons.visibility_off,
                           ),
+                          prov.isLoading
+                      ? Container(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 34,
+                            vertical: 8,
+                          ),
+                          height: 50,
+                          child: const Center(
+                            child: CupertinoActivityIndicator(
+                              radius: 15,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ):
                           SignInLogInButtonWid(
-                            onClick: ()async {
-                           await   prov.loginDataBase(context);
+                            onClick: () async {
+                               prov.callLoginAPI();
+                            
                             },
                             title: 'Login',
                           ),

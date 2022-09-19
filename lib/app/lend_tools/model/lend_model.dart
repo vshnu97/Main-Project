@@ -1,3 +1,6 @@
+
+import 'package:dio/dio.dart';
+
 class LendModelClass {
   final int category;
   final int city;
@@ -10,9 +13,9 @@ class LendModelClass {
   final int rate;
   final String slug;
   final String priceIn;
-  final String image1;
-  final String image2;
-  final String image3;
+  final MultipartFile image1;
+  final MultipartFile image2;
+  final MultipartFile image3;
 
   LendModelClass({
     required this.category,
@@ -31,20 +34,23 @@ class LendModelClass {
     required this.image3,
   });
 
-  Map<String, dynamic> toJson() => {
-        'district': district,
-        'city': city,
-        'title': title,
-        'category': category,
-        'discription': description,
-        'sub_mobile': subMobileNumber,
-        'place': place,
-        'address': address,
-        'rate': rate,
-        'slug': slug,
-        'image': image1,
-        'image1': image2,
-        'image2': image3,
-        " price_in": priceIn,
-      };
+//   Map<String, dynamic> toJson() => {
+//         'district': district,
+//         'city': city,
+//         'title': title,
+//         'category': category,
+//         'discription': description,
+//         'sub_mobile': subMobileNumber,
+//         'place': place,
+//         'address': address,
+//         'rate': rate,
+//         'slug': slug,
+//         FormData.fromMap({"image": image1}),
+//         'image1': image2,
+//         'image2': image3,
+//         "price_in": priceIn,
+//       };
+// }
+
 }
+

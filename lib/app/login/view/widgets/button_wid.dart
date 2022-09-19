@@ -10,19 +10,15 @@ class SignInLogInButtonWid extends StatelessWidget {
     required this.onClick,
   }) : super(key: key);
 
-  
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: MaterialButton(
-        onPressed: 
-          onClick,
-       
+        onPressed: onClick,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
         color: kGreenColor,
-        child:  Padding(
+        child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: Text(
             title,

@@ -1,16 +1,5 @@
 import 'package:flutter/material.dart';
 
-// class RoutesScreen {
-//   pushScreen(BuildContext context, Widget screen) {
-//     Navigator.of(context).push(MaterialPageRoute(builder: (cxt) => screen));
-//   }
-
-//   popscreen(BuildContext context) {
-//     Navigator.of(context).pop();
-//   }
-// }
-
-
 class Routes {
   static final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -29,7 +18,8 @@ class Routes {
       ),
     );
   }
-  static popscreen(){
+
+  static popscreen() {
     navigatorKey.currentState?.pop();
   }
 }
