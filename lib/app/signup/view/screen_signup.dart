@@ -79,7 +79,7 @@ class ScreenSignUp extends StatelessWidget {
                           kheight5,
                           SignInLogInButtonWid(
                             onClick: () {
-                              // prov.signInDataBase(context);
+                               prov.signInDataBase(context);
                               // RoutesScreen().pushScreen(context, const ScreenOtp());
                               Routes.push(screen: const ScreenOtp());
                             },

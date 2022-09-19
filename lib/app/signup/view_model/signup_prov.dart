@@ -26,6 +26,11 @@ class SignUpProv extends ChangeNotifier {
     isobscureConfirm = !isobscureConfirm;
     notifyListeners();
   }
+  @override
+  void dispose() {
+    signUpPhoneNumControler.dispose();
+    super.dispose();
+  }
 
   final dio = Dio(BaseOptions(baseUrl: Url.baseUrl));
   signInDataBase(BuildContext context) async {
