@@ -1,11 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:main_project/app/login/view/login.dart';
 import 'package:main_project/app/login/view/widgets/button_wid.dart';
 import 'package:main_project/app/login/view/widgets/create_reg.dart';
 import 'package:main_project/app/login/view/widgets/divider_wid.dart';
 import 'package:main_project/app/login/view/widgets/privcy_wid.dart';
-import 'package:main_project/app/routes/routes.dart';
-import 'package:main_project/app/signup/view/screen_otp.dart';
 import 'package:main_project/app/signup/view/widegts/signup_textfieldwid.dart';
 import 'package:main_project/app/signup/view_model/signup_prov.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
@@ -17,7 +16,7 @@ class ScreenSignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final prov = Provider.of<SignUpProv>(context);
+    final provider = Provider.of<SignUpProv>(context);
     Size sizez = MediaQuery.of(context).size;
     final size = MediaQuery.of(context).size.width;
     return GestureDetector(
@@ -55,14 +54,14 @@ class ScreenSignUp extends StatelessWidget {
                             iconprefix: Icons.person,
                             inputType: TextInputType.text,
                             sizez: sizez,
-                            contoller: prov.signUpnameController,
+                            contoller: provider.signUpnameController,
                           ),
                           SignUpTextFieldWid(
                             hintText: "Enter your email",
                             iconprefix: Icons.email,
                             inputType: TextInputType.emailAddress,
                             sizez: sizez,
-                            contoller: prov.signUpEmailController,
+                            contoller: provider.signUpEmailController,
                           ),
                           SignUpTextFieldWid(
                             hintText: "Enter your phone number",
@@ -70,21 +69,20 @@ class ScreenSignUp extends StatelessWidget {
                             inputType: TextInputType.number,
                             maxlength: 10,
                             sizez: sizez,
-                            contoller: prov.signUpPhoneNumControler,
+                            contoller: provider.signUpPhoneNumControler,
                           ),
                           SignUpPassTextFieldWidget(
                             size: sizez,
                           ),
                           ConfirmPasswTextField(size: sizez),
                           kheight5,
+                          provider.isLoading==false?
                           SignInLogInButtonWid(
                             onClick: () {
-                               prov.signInDataBase(context);
-                              // RoutesScreen().pushScreen(context, const ScreenOtp());
-                              Routes.push(screen: const ScreenOtp());
+                              provider.callSignUpAPI(context);
                             },
                             title: 'Signin',
-                          ),
+                          ):const CupertinoActivityIndicator(),
                           const CreateOrRegisterWid(
                               screen: ScreenLogin(),
                               subtitle: 'Log In',

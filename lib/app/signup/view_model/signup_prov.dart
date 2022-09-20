@@ -1,11 +1,13 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:main_project/app/domain/api_end_points.dart';
+import 'package:main_project/app/login/view/widgets/snackbar.dart';
 import 'package:main_project/app/routes/routes.dart';
+import 'package:main_project/app/signup/model/response_signup.dart';
 import 'package:main_project/app/signup/model/signup_model.dart';
 import 'package:main_project/app/signup/view/screen_otp.dart';
+import 'package:main_project/app/signup/view_model/api%20service/api.dart';
 
 class SignUpProv extends ChangeNotifier {
   final signUpPhoneNumControler = TextEditingController();
@@ -13,7 +15,7 @@ class SignUpProv extends ChangeNotifier {
   final signUpEmailController = TextEditingController();
   final signUppasswrdController = TextEditingController();
   final signUpConfrmController = TextEditingController();
-
+  bool isLoading = false;
   bool isObscure = true;
   bool isobscureConfirm = true;
 
@@ -26,35 +28,35 @@ class SignUpProv extends ChangeNotifier {
     isobscureConfirm = !isobscureConfirm;
     notifyListeners();
   }
-  @override
-  void dispose() {
-    signUpPhoneNumControler.dispose();
-    super.dispose();
-  }
 
   final dio = Dio(BaseOptions(baseUrl: Url.baseUrl));
-  signInDataBase(BuildContext context) async {
+  callSignUpAPI(BuildContext context) async {
     String psswrd2 = signUppasswrdController.text.trim();
     String psswrd1 = signUpConfrmController.text.trim();
     String name = signUpnameController.text;
     String email = signUpEmailController.text.trim();
     String phone = signUpPhoneNumControler.text;
-
-    if (psswrd2 != psswrd1) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10))),
-          duration: Duration(milliseconds: 1500),
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Color.fromARGB(255, 215, 6, 6),
-          margin: EdgeInsets.all(20),
-          content: Padding(
-            padding: EdgeInsets.symmetric(vertical: 9),
-            child: Text(
-              'Password Does not Match',
-              style: TextStyle(letterSpacing: 2, fontWeight: FontWeight.w500),
-            ),
-          )));
+    if (phone.isEmpty || name.isEmpty || email.isEmpty) {
+      pop('Enter all fields');
+      return;
+    } else if (psswrd1.isEmpty) {
+      pop('Enter the password');
+      return;
+    } else if (psswrd1.length < 8) {
+      pop('Password must contain atleast 8 characters');
+      return;
+    } else if (psswrd2 != psswrd1 || psswrd2.isEmpty) {
+      pop('Password does not match');
+      return;
+    } else if (phone.isEmpty || phone.length < 10) {
+      pop('Enter your phone number correctly');
+      return;
+    } else if (name.isEmpty) {
+      pop('Enter a name');
+      return;
+    } else if (email.isEmpty) {
+      pop('Enter the email');
+      return;
     } else {
       final dataQ = SignUpModelClass(
           firstName: name,
@@ -63,46 +65,45 @@ class SignUpProv extends ChangeNotifier {
           email: email,
           password: psswrd2,
           confirmPassword: psswrd1);
-      try {
-        Response response = await dio.post(Url.signUp, data: dataQ.toJson());
-
-        if (response.statusCode! >= 200 || response.statusCode! <= 299) {
-          log(response.data.toString());
-          //  RoutesScreen().pushScreen(context, const ScreenOtp());
+      isLoading = true;
+      notifyListeners();
+      ResponseSignUpModel? response = await APISignUp().signUpUser(dataQ);
+      if (response != null) {
+        _hideLoading();
+        if (response.email != null) {
+          storedataLogin(response);
           Routes.push(screen: const ScreenOtp());
-          disposeSignupPage(context);
         } else {
-          pop(context, response.statusCode.toString());
+          pop(response.message.toString());
         }
-      } catch (e) {
-        log(e.toString());
+      } else {
+        pop('No network');
       }
     }
   }
 
-  void disposeSignupPage(BuildContext context) {
-    signUpPhoneNumControler.clear();
-    signUpnameController.clear();
-    signUpEmailController.clear();
-    signUppasswrdController.clear();
-    signUpConfrmController.clear();
+  FlutterSecureStorage storage = const FlutterSecureStorage();
+  storedataLogin(ResponseSignUpModel value) async {
+    await storage.write(key: "email", value: value.email);
+    await storage.write(key: "phoneNum", value: value.mobile);
+    await storage.write(key: 'isActive', value: value.isActive);
+  }
+  getNumber() async {
+    return await storage.read(key: 'phoneNum');
   }
 
-  pop(BuildContext context, String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-        duration: const Duration(milliseconds: 1500),
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: const Color.fromARGB(255, 215, 6, 6),
-        margin: const EdgeInsets.all(20),
-        content: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 9),
-          child: Text(
-            msg,
-            style:
-                const TextStyle(letterSpacing: 2, fontWeight: FontWeight.w500),
-          ),
-        )));
+  _hideLoading() {
+    isLoading = false;
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    signUpPhoneNumControler.dispose();
+    signUpnameController.dispose();
+    signUpEmailController.dispose();
+    signUppasswrdController.dispose();
+    signUpConfrmController.dispose();
+    super.dispose();
   }
 }

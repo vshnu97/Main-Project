@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:main_project/main.dart';
+import 'package:main_project/app/providers/providers.dart';
 pop(String msg) {
- rootScaffoldMessengerKey.currentState?.showSnackBar(SnackBar(
+Providers. rootScaffoldMessengerKey.currentState?.showSnackBar(SnackBar(
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10))),
       duration: const Duration(milliseconds: 1500),
