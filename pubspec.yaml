@@ -31,6 +31,7 @@ dependencies:
   dio: ^4.0.6
   flutter:
     sdk: flutter
+  flutter_secure_storage: ^6.0.0
   google_fonts: ^3.0.1
   image_picker: ^0.8.5+3
   internet_connection_checker: ^0.0.1+4

@@ -7,6 +7,9 @@ import 'package:main_project/main.dart';
 import 'package:provider/provider.dart';
 
 class Providers {
+  static GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
+
   static Widget providers() {
     return MultiProvider(
       providers: [

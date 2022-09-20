@@ -37,8 +37,13 @@ class ScreenOtp extends StatelessWidget {
                   fsize: 25),
             ),
             kheight,
-            const Text('We sent your code to +91 XXXX XX ****',
-                style: TextStyle(fontSize: 15)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Text('We sent your code to',
+                    style: TextStyle(fontSize: 15)),
+              ],
+            ),
             kheight5,
             kheight20,
             Row(

@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:main_project/app/login/view_model/login.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
+import 'package:provider/provider.dart';
 
 class SignInLogInButtonWid extends StatelessWidget {
   VoidCallback onClick;
@@ -12,6 +15,7 @@ class SignInLogInButtonWid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<HomeProv>();
     return SizedBox(
       width: double.infinity,
       child: MaterialButton(
@@ -20,11 +24,17 @@ class SignInLogInButtonWid extends StatelessWidget {
         color: kGreenColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Text(
-            title,
-            style: const TextStyle(
-                color: kWhiteColor, fontSize: 20, fontWeight: FontWeight.bold),
-          ),
+          child: provider.isLoading
+              ? const CupertinoActivityIndicator(
+                  color: kWhiteColor,
+                )
+              : Text(
+                  title,
+                  style: const TextStyle(
+                      color: kWhiteColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
         ),
       ),
     );

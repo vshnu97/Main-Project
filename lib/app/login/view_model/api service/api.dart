@@ -1,4 +1,9 @@
+import 'dart:async';
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:main_project/app/domain/api_end_points.dart';
 import 'package:main_project/app/login/model/login_model.dart';
@@ -6,20 +11,27 @@ import 'package:main_project/app/login/model/response_model.dart';
 import 'package:main_project/app/login/view/widgets/snackbar.dart';
 
 class API {
-  final dio = Dio(BaseOptions(baseUrl: Url.baseUrl));
+  final dio = Dio(BaseOptions(baseUrl: Url.baseUrl,connectTimeout:5 ));
   Future<ResponseLoginModel?> loginUser(LoginModelClass dataQ) async {
     try {
       final re = await checkin();
       if (re) {
         Response response = await dio.post(Url.login, data: dataQ.toJson());
-        if (response.statusCode! >= 200 || response.statusCode! <= 299) {
-          return ResponseLoginModel.fromJson(response.data);
-        } else {
+        if (response.statusCode == 200) {
           return ResponseLoginModel.fromJson(response.data);
         }
       }
-    } catch (e) {
+    }on TimeoutException catch(e){
+      log('Timeout');
+      debugPrint(e.toString());
+    }
+    on SocketException catch(e){
+      log('srrrrr');
+      debugPrint(e.toString());
+    }
+     catch (e) {
       if (e is DioError) {
+        
         if (e.response?.data == null) {
           return ResponseLoginModel(message: 'Something went wrong!');
         }
@@ -27,6 +39,7 @@ class API {
           e.response!.data,
         );
       } else {
+        log('dioerror');
         return ResponseLoginModel(message: e.toString());
       }
     }
