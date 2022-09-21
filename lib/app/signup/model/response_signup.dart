@@ -2,11 +2,13 @@ class ResponseSignUpModel {
   String? name;
   String? mobile;
   String? email;
-  String? isActive;
+  bool? isActive;
   String? message;
 
   ResponseSignUpModel(
-      {this.email, this.isActive, this.mobile, this.name, this.message});
+      {this.email,
+      this.isActive, 
+       this.mobile, this.name, this.message});
 
   factory ResponseSignUpModel.fromJson(Map<String, dynamic> json) =>
       ResponseSignUpModel(

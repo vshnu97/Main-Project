@@ -24,8 +24,6 @@ class APISignUp {
       if (e.response!.data == null) {
         return ResponseSignUpModel(message: 'Something went wrong!');
       }
-      log(e.response!.data.toString());
-      return ResponseSignUpModel(message: e.response!.data["detail"]);
     } catch (e) {
       log('catch');
       return ResponseSignUpModel(message: e.toString());

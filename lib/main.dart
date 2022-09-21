@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:main_project/app/home/view/screen_home.dart';
 import 'package:main_project/app/login/view/login.dart';
 import 'package:main_project/app/providers/providers.dart';
 import 'package:main_project/app/routes/routes.dart';

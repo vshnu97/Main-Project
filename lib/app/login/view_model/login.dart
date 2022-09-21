@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -27,6 +29,7 @@ class HomeProv extends ChangeNotifier {
     ResponseLoginModel? response = await API().loginUser(dataQ);
     if (response != null) {
       _hideLoading();
+      log(response.status.toString());
       if (response.status!) {
         storedataLogin(response);
         Routes.pushreplace(screen: const ScreenHome());
