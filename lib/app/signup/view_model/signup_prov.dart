@@ -1,13 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:main_project/app/domain/api_end_points.dart';
 import 'package:main_project/app/login/view/widgets/snackbar.dart';
 import 'package:main_project/app/routes/routes.dart';
 import 'package:main_project/app/signup/model/response_signup.dart';
 import 'package:main_project/app/signup/model/signup_model.dart';
 import 'package:main_project/app/signup/view/screen_otp.dart';
-import 'package:main_project/app/signup/view_model/api%20service/api.dart';
+import 'package:main_project/app/signup/view_model/api%20service/api_service_signup.dart';
 
 class SignUpProv extends ChangeNotifier {
   final signUpPhoneNumControler = TextEditingController();
@@ -70,9 +69,12 @@ class SignUpProv extends ChangeNotifier {
       ResponseSignUpModel? response = await APISignUp().signUpUser(dataQ);
       if (response != null) {
         _hideLoading();
+
         if (response.email != null) {
-          storedataLogin(response);
-          Routes.push(screen: const ScreenOtp());
+          Routes.push(
+              screen: ScreenOtp(
+            response: response,
+          ));
         } else {
           pop(response.message.toString());
         }
@@ -80,16 +82,6 @@ class SignUpProv extends ChangeNotifier {
         pop('No network');
       }
     }
-  }
-
-  FlutterSecureStorage storage = const FlutterSecureStorage();
-  storedataLogin(ResponseSignUpModel value) async {
-    await storage.write(key: "email", value: value.email);
-    await storage.write(key: "phoneNum", value: value.mobile);
-    await storage.write(key: 'isActive', value: value.isActive);
-  }
-  getNumber() async {
-    return await storage.read(key: 'phoneNum');
   }
 
   _hideLoading() {

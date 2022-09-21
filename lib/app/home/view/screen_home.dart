@@ -28,53 +28,54 @@ class ScreenHome extends StatelessWidget {
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(18, 0, 18, 12),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
-              children: [
-                Text(
-                  'Find your On-Demand',
-                  style: poppins(),
-                ),
-                Text(
-                  'We provide better sevice for you with our\non-demand service app',
-                  style: poppins(
-                      fcolor: kGreyColor,
-                      fweight: FontWeight.w500,
-                      fsize: 13,
-                      flettrspc: 0),
-                  textAlign: TextAlign.center,
-                )
-              ],
-            ),
-             const HomeContainerWid(
-              description: 'Get the job from your\nneighbourhood itself.',
-              image: 'assests/needJobb.png',
-              title: 'Need a Job ?',
-              color: kYellowHomeColor, screen: ScreenNeedJob(),
-            ),
-             const HomeContainerWid(
-              description: 'Get the best worker\nfrom your neighbourhood.',
-              image: 'assests/needEmploye.png',
-              title: 'Need a Worker ?',
-              color: kBlueHomeColor, screen: ScreenHireEmployee(),
-            ),
-             const HomeContainerWid(
-              description: 'Get the job from your\nneighbourhood itself.',
-              image: 'assests/kkk.png',
-              title: 'Looking for rent ?',
-              color: kPinkHomeColor, screen:ScreenRentTools(),
-            ),
-             const HomeContainerWid(
-              description: 'Get the job from your\nneighbourhood itself.',
-              image: 'assests/lend.png',
-              title: 'Lend your tools ?',
-              color: kGreenHomeColor, screen: ScreenLendTools(),
-            )
-          ],
+      body: SingleChildScrollView(
+          child: Padding(
+          padding: const EdgeInsets.fromLTRB(18, 0, 18, 12),
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  Text(
+                    'Find your On-Demand',
+                    style: poppins(),
+                  ),
+                  Text(
+                    'We provide better sevice for you with our\non-demand service app',
+                    style: poppins(
+                        fcolor: kGreyColor,
+                        fweight: FontWeight.w500,
+                        fsize: 13,
+                        flettrspc: 0),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+               const HomeContainerWid(
+                description: 'Get the job from your\nneighbourhood itself.',
+                image: 'assests/needJobb.png',
+                title: 'Need a Job ?',
+                color: kYellowHomeColor, screen: ScreenNeedJob(),
+              ),
+               const HomeContainerWid(
+                description: 'Get the best worker\nfrom your neighbourhood.',
+                image: 'assests/needEmploye.png',
+                title: 'Need a Worker ?',
+                color: kBlueHomeColor, screen: ScreenHireEmployee(),
+              ),
+               const HomeContainerWid(
+                description: 'Get the job from your\nneighbourhood itself.',
+                image: 'assests/kkk.png',
+                title: 'Looking for rent ?',
+                color: kPinkHomeColor, screen:ScreenRentTools(),
+              ),
+               const HomeContainerWid(
+                description: 'Get the job from your\nneighbourhood itself.',
+                image: 'assests/lend.png',
+                title: 'Lend your tools ?',
+                color: kGreenHomeColor, screen: ScreenLendTools(),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -100,6 +101,7 @@ class HomeContainerWid extends StatelessWidget {
   Widget build(BuildContext context) {
     final heightX = MediaQuery.of(context).size.height;
     return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5),
       width: double.infinity,
       height: heightX * .17,
       decoration:
@@ -162,7 +164,7 @@ class HomeContainerWid extends StatelessWidget {
               ],
             ),
             CircleAvatar(
-              radius: 60,
+              radius: 57,
               backgroundImage: AssetImage(image),
               backgroundColor: color,
             )

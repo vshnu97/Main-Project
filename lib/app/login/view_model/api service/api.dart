@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -11,7 +10,9 @@ import 'package:main_project/app/login/model/response_model.dart';
 import 'package:main_project/app/login/view/widgets/snackbar.dart';
 
 class API {
-  final dio = Dio(BaseOptions(baseUrl: Url.baseUrl,connectTimeout:5 ));
+  final dio = Dio(BaseOptions(
+    baseUrl: Url.baseUrl,
+  ));
   Future<ResponseLoginModel?> loginUser(LoginModelClass dataQ) async {
     try {
       final re = await checkin();
@@ -21,17 +22,12 @@ class API {
           return ResponseLoginModel.fromJson(response.data);
         }
       }
-    }on TimeoutException catch(e){
-      log('Timeout');
+    } on TimeoutException catch (e) {
       debugPrint(e.toString());
-    }
-    on SocketException catch(e){
-      log('srrrrr');
+    } on SocketException catch (e) {
       debugPrint(e.toString());
-    }
-     catch (e) {
+    } catch (e) {
       if (e is DioError) {
-        
         if (e.response?.data == null) {
           return ResponseLoginModel(message: 'Something went wrong!');
         }
@@ -39,7 +35,6 @@ class API {
           e.response!.data,
         );
       } else {
-        log('dioerror');
         return ResponseLoginModel(message: e.toString());
       }
     }

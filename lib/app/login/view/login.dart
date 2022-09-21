@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 class ScreenLogin extends StatelessWidget {
   const ScreenLogin({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     final prov = Provider.of<HomeProv>(context);
@@ -23,6 +24,7 @@ class ScreenLogin extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
+        
       },
       child: SafeArea(
         child: Scaffold(
