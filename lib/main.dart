@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:main_project/app/login/view/login.dart';
 import 'package:main_project/app/providers/providers.dart';
 import 'package:main_project/app/routes/routes.dart';
+import 'package:main_project/app/splash_screen/view/screen_splash.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 
 void main(List<String> args) {
@@ -20,20 +20,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           scaffoldBackgroundColor: kWhiteColor,
         ),
-        home:const ScreenLogin());
+        home: const ScreenSplash());
   }
-
-  // check() {
-  //     String? data = '';
-  //   const storage = FlutterSecureStorage();
-  //   storage.read(key: 'Login').then((value) {
-  //     data = value;
-      
-  //     if (data == "true") {
-  //        Routes.push(screen:const ScreenHome() ) ;
-  //       } else {
-  //          Routes.push(screen:const ScreenLogin() ) ;
-  //       }
-  //   });
-  // }
 }

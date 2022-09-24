@@ -32,7 +32,7 @@ class HomeProv extends ChangeNotifier {
       log(response.status.toString());
       if (response.status!) {
         storedataLogin(response);
-        Routes.pushreplace(screen: const ScreenHome());
+        Routes.pushreplace(screen:  const ScreenHome());
       } else {
         pop(response.message.toString());
       }
@@ -68,6 +68,7 @@ class HomeProv extends ChangeNotifier {
   storedataLogin(ResponseLoginModel value) async {
     await storage.write(key: "token", value: value.token);
     await storage.write(key: "refreshToken", value: value.refreshToken);
+    await storage.write(key: "login", value: "true");
   }
 
   getToken() async {
@@ -76,9 +77,5 @@ class HomeProv extends ChangeNotifier {
 
   getRefreshToken() async {
     return await storage.read(key: 'refreshToken');
-  }
-
-  isLogin() async {
-    return await storage.write(key: 'Login', value: 'true');
   }
 }

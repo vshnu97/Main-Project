@@ -22,4 +22,12 @@ class Routes {
   static popscreen() {
     navigatorKey.currentState?.pop();
   }
+
+  static pushremoveUntil({required var screen}) {
+    navigatorKey.currentState?.pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => screen,
+        ),
+        (route) => false);
+  }
 }

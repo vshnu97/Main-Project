@@ -4,4 +4,5 @@ class Url {
   static const signUp = 'user/register/';
   static const otp = 'user/verify/';
   static const lend = 'rent/post/';
+  static const rentAll ='rent/rentall/';
 }
