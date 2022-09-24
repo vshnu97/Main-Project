@@ -13,7 +13,7 @@ class ScreenLendTools extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('Build');
+  
     final widthSize = MediaQuery.of(context).size.width;
 
     return Scaffold(

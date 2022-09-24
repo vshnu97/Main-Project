@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:main_project/app/rent_tools/view/widget/popular_tools.dart';
+import 'package:main_project/app/rent_tools/view/widget/latest_tools.dart';
 import 'package:main_project/app/rent_tools/view/widget/tools_category.dart';
 import 'package:main_project/app/routes/routes.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
@@ -11,15 +11,17 @@ class ScreenRentTools extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final heightX = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color(0xffe8e9ec),
         appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(170),
+            preferredSize: Size.fromHeight(heightX * .22),
             child: Stack(
               clipBehavior: Clip.none,
               children: [
                 Container(
-                  height: 170,
+                  height: heightX * .22,
                   decoration: const BoxDecoration(
                       color: kGreenColor,
                       borderRadius: BorderRadius.only(
@@ -77,12 +79,14 @@ class ScreenRentTools extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Rent for',
-                    style: roboto(fsize: 18, fweight: FontWeight.w700),
-                  ),
+                  Text('Select by category',
+                      style: roboto(
+                        fsize: 18,
+                        fweight: FontWeight.w700,
+                        fcolor: kBlackColor,
+                      )),
                   kheight,
-                  const ToolsCategoryListWidget()
+                  ToolsCategoryListWidget()
                 ],
               ),
               kheight15,
@@ -90,7 +94,7 @@ class ScreenRentTools extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Popular tools',
+                    'Latest tools',
                     style: roboto(
                       fcolor: kBlackColor,
                       fweight: FontWeight.w700,

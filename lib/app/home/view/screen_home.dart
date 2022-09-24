@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:main_project/app/hire_employee/view/screen_hire_employe.dart';
 import 'package:main_project/app/lend_tools/view/screen_lend.dart';
 import 'package:main_project/app/need_job/view/screen_needjob.dart';
 import 'package:main_project/app/rent_tools/view/screen_rent.dart';
 import 'package:main_project/app/routes/routes.dart';
+import 'package:main_project/app/splash_screen/view/screen_splash.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
 
 class ScreenHome extends StatelessWidget {
-  const ScreenHome({Key? key}) : super(key: key);
-
+   const ScreenHome({Key? key}) : super(key: key);
+ final storage = const FlutterSecureStorage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,15 +23,26 @@ class ScreenHome extends StatelessWidget {
         title: Column(
           children: [
             kheight20,
-            Text(
-              'Discover Now',
-              style: dmSans(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Discover Now',
+                  style: dmSans(),
+                ),
+                IconButton(onPressed: (){
+                  storage.deleteAll();
+                  Routes.pushremoveUntil(screen: const ScreenSplash());
+
+                }, icon: const Icon(Icons
+                .logout),color: kBlackColor,)
+              ],
             )
           ],
         ),
       ),
       body: SingleChildScrollView(
-          child: Padding(
+        child: Padding(
           padding: const EdgeInsets.fromLTRB(18, 0, 18, 12),
           child: Column(
             children: [
@@ -50,29 +63,33 @@ class ScreenHome extends StatelessWidget {
                   )
                 ],
               ),
-               const HomeContainerWid(
+              const HomeContainerWid(
                 description: 'Get the job from your\nneighbourhood itself.',
                 image: 'assests/needJobb.png',
                 title: 'Need a Job ?',
-                color: kYellowHomeColor, screen: ScreenNeedJob(),
+                color: kYellowHomeColor,
+                screen: ScreenNeedJob(),
               ),
-               const HomeContainerWid(
+              const HomeContainerWid(
                 description: 'Get the best worker\nfrom your neighbourhood.',
                 image: 'assests/needEmploye.png',
                 title: 'Need a Worker ?',
-                color: kBlueHomeColor, screen: ScreenHireEmployee(),
+                color: kBlueHomeColor,
+                screen: ScreenHireEmployee(),
               ),
-               const HomeContainerWid(
-                description: 'Get the job from your\nneighbourhood itself.',
+              const HomeContainerWid(
+                description: 'Find high quality tools\nthat make job easier.',
                 image: 'assests/kkk.png',
                 title: 'Looking for rent ?',
-                color: kPinkHomeColor, screen:ScreenRentTools(),
+                color: kPinkHomeColor,
+                screen: ScreenRentTools(),
               ),
-               const HomeContainerWid(
-                description: 'Get the job from your\nneighbourhood itself.',
+              const HomeContainerWid(
+                description: 'Got nice tools in dust?\nLend them and earn.',
                 image: 'assests/lend.png',
                 title: 'Lend your tools ?',
-                color: kGreenHomeColor, screen: ScreenLendTools(),
+                color: kGreenHomeColor,
+                screen: ScreenLendTools(),
               )
             ],
           ),
@@ -130,8 +147,7 @@ class HomeContainerWid extends StatelessWidget {
                   ],
                 ),
                 GestureDetector(
-                  onTap: (){
-                    // RoutesScreen().pushScreen(context, const ScreenHireEmployee());
+                  onTap: () {
                     Routes.push(screen: screen);
                   },
                   child: Container(
