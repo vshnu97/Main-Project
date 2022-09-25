@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:main_project/app/rent_tools/view/screen_rent_view.dart';
 import 'package:main_project/app/rent_tools/view_model/rent_all_provider.dart';
+import 'package:main_project/app/routes/routes.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
@@ -39,7 +41,8 @@ class PopularToolsListWidget extends StatelessWidget {
                           width: 100,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                                image: NetworkImage(list.image.toString())),
+                                image: NetworkImage(list.image.toString()),
+                                fit: BoxFit.cover),
                             borderRadius: BorderRadius.circular(15),
                           ),
                         ),
@@ -88,7 +91,10 @@ class PopularToolsListWidget extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(12)),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Routes.push(
+                                    screen: ScreenRentItemView(list: list));
+                              },
                               child: Container(
                                 height: 30,
                                 width: 100,
