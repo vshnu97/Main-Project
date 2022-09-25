@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:main_project/app/lend_tools/view_model/lend_provider.dart';
 import 'package:main_project/app/login/view_model/login.dart';
 import 'package:main_project/app/rent_tools/view_model/rent_all_provider.dart';
+import 'package:main_project/app/rent_tools/view_model/rent_item_view_provider.dart';
 import 'package:main_project/app/signup/view_model/otp.prov.dart';
 import 'package:main_project/app/signup/view_model/signup_prov.dart';
 import 'package:main_project/app/splash_screen/view_model/splash_provider.dart';
@@ -21,6 +22,7 @@ class Providers {
         ChangeNotifierProvider<LendProvider>(create: ((context) => LendProvider())),
          ChangeNotifierProvider<SplashProvider>(create: ((context) => SplashProvider())),
          ChangeNotifierProvider<RentAllProvider>(create: ((context) => RentAllProvider())),
+         ChangeNotifierProvider<RentItemViewProvider>(create: ((context) => RentItemViewProvider())),
       ],
       child: const MyApp(),
     );

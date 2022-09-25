@@ -61,8 +61,6 @@ class ScreenRentAllCategoryWise extends StatelessWidget {
                                 height: 100,
                                 width: 100,
                                 decoration: BoxDecoration(
-                                    // image: DecorationImage(
-                                    //     image: NetworkImage(image.toString())),
                                     borderRadius: BorderRadius.circular(15),
                                     color: kBlueColor),
                               ),
