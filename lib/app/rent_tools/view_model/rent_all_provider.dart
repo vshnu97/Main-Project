@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:main_project/app/login/view/widgets/snackbar.dart';
+import 'package:main_project/app/rent_tools/api_service/api_rent_all.dart';
 import 'package:main_project/app/rent_tools/model/all_rent_model.dart';
-import 'package:main_project/app/rent_tools/view_model/api_service/api_rent_all.dart';
 
 class RentAllProvider extends ChangeNotifier {
   List<String> categoryImages = [

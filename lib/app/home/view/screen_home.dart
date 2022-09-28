@@ -5,7 +5,7 @@ import 'package:main_project/app/lend_tools/view/screen_lend.dart';
 import 'package:main_project/app/need_job/view/screen_needjob.dart';
 import 'package:main_project/app/rent_tools/view/screen_rent.dart';
 import 'package:main_project/app/routes/routes.dart';
-import 'package:main_project/app/splash_screen/view/screen_splash.dart';
+import 'package:main_project/app/user_profile/view/screen_user_profile.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
@@ -23,20 +23,14 @@ class ScreenHome extends StatelessWidget {
         title: Column(
           children: [
             kheight20,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Discover Now',
-                  style: dmSans(),
-                ),
-                IconButton(onPressed: (){
-                  storage.deleteAll();
-                  Routes.pushremoveUntil(screen: const ScreenSplash());
-
-                }, icon: const Icon(Icons
-                .logout),color: kBlackColor,)
-              ],
+            InkWell(
+              onTap: (){
+                Routes.push(screen: const ScreenUserProfile());
+              },
+              child: Text(
+                'Discover Now',
+                style: dmSans(),
+              ),
             )
           ],
         ),

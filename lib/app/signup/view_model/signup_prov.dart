@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:main_project/app/domain/api_end_points.dart';
 import 'package:main_project/app/login/view/widgets/snackbar.dart';
 import 'package:main_project/app/routes/routes.dart';
+import 'package:main_project/app/signup/api_service/api_service_signup.dart';
 import 'package:main_project/app/signup/model/response_signup.dart';
 import 'package:main_project/app/signup/model/signup_model.dart';
 import 'package:main_project/app/signup/view/screen_otp.dart';
-import 'package:main_project/app/signup/view_model/api_service/api_service_signup.dart';
 
 class SignUpProv extends ChangeNotifier {
   final signUpPhoneNumControler = TextEditingController();
