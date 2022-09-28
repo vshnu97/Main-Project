@@ -6,26 +6,7 @@ import 'package:main_project/app/login/view/widgets/snackbar.dart';
 import 'package:main_project/app/rent_tools/model/all_rent_model.dart';
 
 class RentAllAPI {
-  // Future<RentModelClass> getAPI() async {
-  //   FlutterSecureStorage storage = const FlutterSecureStorage();
-  //   final token = storage.read(key: 'token');
-  //   Dio().interceptors.clear();
-  //   Dio().interceptors.add(InterceptorsWrapper(onRequest:
-  //           (RequestOptions options, RequestInterceptorHandler handler) {
-  //         options.headers["Authorization"] = "Bearer $token";
-  //       }, onResponse: (response, handler) {
-  //         return;
-  //       },onError: (DioError error,handler)async{
-
-  //     if (error.response?.statusCode == 403){
-  //        Dio().interceptors.QueuedInterceptor.
-  //       Dio().interceptors.responseLock.lock();
-  //     }
-  //       }
-
-  //       ));
-  //   return RentModelClass();
-  // }
+ 
   final dio = Dio(BaseOptions(
     baseUrl: Url.baseUrl,
   ));

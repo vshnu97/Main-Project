@@ -5,10 +5,10 @@ import 'package:main_project/app/domain/api_end_points.dart';
 import 'package:main_project/app/login/view/login.dart';
 import 'package:main_project/app/login/view/widgets/snackbar.dart';
 import 'package:main_project/app/routes/routes.dart';
+import 'package:main_project/app/signup/api_service/api_service_otp.dart';
 import 'package:main_project/app/signup/model/otp_model.dart';
 import 'package:main_project/app/signup/model/response_otp.dart';
 import 'package:main_project/app/signup/model/response_signup.dart';
-import 'package:main_project/app/signup/view_model/api_service/api_service_otp.dart';
 
 class OtpProv extends ChangeNotifier {
   final otp1 = TextEditingController();
