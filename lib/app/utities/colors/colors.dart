@@ -14,3 +14,4 @@ const kyellowColor = Color(0xffFFCE31);
 const kContainerColor =  Color(0xffD9D9D9);
 const kAvailableGreen = Color(0xff4fd965);
 const kAvailableRed = Color(0xfffe3b31);
+const kpaymentgreen = Color(0xff3fb555);

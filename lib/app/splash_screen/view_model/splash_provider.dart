@@ -11,7 +11,6 @@ class SplashProvider extends ChangeNotifier {
 
   String? data = '';
   SplashProvider() {
-    print('splash');
     storage.read(key: "login").then((value) {
       data = value;
       log(value.toString());
@@ -19,10 +18,9 @@ class SplashProvider extends ChangeNotifier {
     check();
   }
   check() {
-    print('splash');
     Timer(const Duration(seconds: 2), () {
       if (data == "true") {
-        Routes.pushreplace(screen:  const ScreenHome());
+        Routes.pushreplace(screen: const ScreenHome());
       } else {
         Routes.pushreplace(screen: const ScreenLogin());
       }

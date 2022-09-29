@@ -31,9 +31,11 @@ class HomeProv extends ChangeNotifier {
       log(response.status.toString());
       if (response.status!) {
         storedataLogin(response);
-        Routes.pushreplace(screen:  const ScreenHome());
+        Routes.pushreplace(screen: const ScreenHome());
       } else {
-        pop(response.message.toString(),);
+        pop(
+          response.message.toString(),
+        );
       }
     }
   }

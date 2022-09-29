@@ -3,6 +3,7 @@ import 'package:main_project/app/payment/view_model/payment_provider.dart';
 import 'package:main_project/app/rent_tools/model/all_rent_model.dart';
 import 'package:main_project/app/rent_tools/view_model/rent_item_view_provider.dart';
 import 'package:main_project/app/routes/routes.dart';
+import 'package:main_project/app/user_profile/view_model/userprofile_provider.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
@@ -140,7 +141,9 @@ class ScreenRentItemView extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
+                context.read<UserProfileProvider>().getUserData();
                value.option(list);
+               
               },
               child: Container(
                 width: size.width / 1.7,

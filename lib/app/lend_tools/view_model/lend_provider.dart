@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:main_project/app/domain/api_end_points.dart';
+import 'package:main_project/app/interceptor/interceptor_helper.dart';
 
 class LendProvider extends ChangeNotifier {
   String image1 = '';
@@ -64,8 +64,8 @@ class LendProvider extends ChangeNotifier {
     // String slug = 'slug';
     // String priceIn = 'per_day';
     var image1 = serverImg1!;
-    var image2 = serverImg2!;
-    var image3 = serverImg3!;
+    var image2 = serverImg1!;
+    var image3 = serverImg1!;
    
 
     FormData formData = FormData.fromMap({
@@ -82,7 +82,8 @@ class LendProvider extends ChangeNotifier {
       "price_in": "rate_day",
       'image': await MultipartFile.fromFile(image1, filename: img1File),
       'image1': await MultipartFile.fromFile(image2, filename: img1File),
-      'image3': await MultipartFile.fromFile(image3, filename: img1File)
+      'image2': await MultipartFile.fromFile(image3, filename: img1File),
+      'date':'2022-09-30'
     });
 
     // final dataQ = LendModelClass(
@@ -100,8 +101,8 @@ class LendProvider extends ChangeNotifier {
     //     image1:await MultipartFile.fromFile(image1.path,filename: img1File),
     //     image2: image2,
     //     image3: image3);
-    final dio = Dio();
-    Response response = await dio.post('', data: formData);
+    Dio dio = await InterceptorHelper().getApiClient();
+    Response response = await dio.post('http://10.0.2.2:8000/rent/post/', data: formData);
     log(response.toString());
   }
 }
