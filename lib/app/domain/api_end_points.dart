@@ -5,4 +5,5 @@ class Url {
   static const otp = 'user/verify/';
   static const lend = 'rent/post/';
   static const rentAll ='rent/rentall/';
+  static const userProfile='user/profile/';
 }

@@ -25,7 +25,9 @@ class ScreenHome extends StatelessWidget {
             kheight20,
             InkWell(
               onTap: (){
+                
                 Routes.push(screen: const ScreenUserProfile());
+               
               },
               child: Text(
                 'Discover Now',
