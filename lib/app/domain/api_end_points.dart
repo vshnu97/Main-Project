@@ -6,4 +6,5 @@ class Url {
   static const lend = 'rent/post/';
   static const rentAll ='rent/rentall/';
   static const userProfile='user/profile/';
+  static const lendpost='job/jobpost/';
 }

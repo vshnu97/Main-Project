@@ -2,22 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 
-class LendTextfieldWidget extends StatelessWidget {
-  String title;
-  String hinttitle;
-  double widthSize;
-  String? textPrefix;
+class TextFieldJobpostWidget extends StatelessWidget {
+  final String title;
+  final String hinttitle;
+  final double widthSize;
+  final String? textPrefix;
   final int? maxlength;
-  TextEditingController controller;
-  TextInputType keyboardType;
-  LendTextfieldWidget(
+
+  final String? Function(String?)? validator;
+final TextEditingController controller;
+  final TextInputType keyboardType;
+  const TextFieldJobpostWidget(
       {Key? key,
       this.textPrefix,
+      this.validator,
       required this.hinttitle,
       required this.title,
       this.maxlength,
       required this.keyboardType,
-      required this.controller,
+       required this.controller,
       required this.widthSize})
       : super(key: key);
 
@@ -32,12 +35,14 @@ class LendTextfieldWidget extends StatelessWidget {
         SizedBox(
             width: widthSize,
             child: TextFormField(
-              controller: controller,
+               controller: controller,
               style: viga(
                   fweight: FontWeight.w500,
                   fcolor: kGreenColor.withOpacity(.5)),
               cursorColor: kyellowColor,
               keyboardType: keyboardType,
+             
+              validator: validator,
               maxLength: maxlength,
               decoration: InputDecoration(
                 prefixText: textPrefix,

@@ -11,8 +11,8 @@ import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
 
 class ScreenHome extends StatelessWidget {
-   const ScreenHome({Key? key}) : super(key: key);
- final storage = const FlutterSecureStorage();
+  const ScreenHome({Key? key}) : super(key: key);
+  final storage = const FlutterSecureStorage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,10 +24,9 @@ class ScreenHome extends StatelessWidget {
           children: [
             kheight20,
             InkWell(
-              onTap: (){
-                
-                Routes.push(screen: const ScreenUserProfile());
-               
+              onTap: () {
+              
+              Routes.push(screen: const ScreenUserProfile());
               },
               child: Text(
                 'Discover Now',

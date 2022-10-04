@@ -18,7 +18,7 @@ class API {
       final re = await checkin();
       if (re) {
         Response response = await dio.post(Url.login, data: dataQ.toJson());
-        if (response.statusCode! >= 200) {
+        if (response.statusCode! >= 200 && response.statusCode! <= 299) {
           return ResponseLoginModel.fromJson(response.data);
         }
       }

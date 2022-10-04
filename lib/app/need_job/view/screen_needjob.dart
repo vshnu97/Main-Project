@@ -1,154 +1,166 @@
 import 'package:flutter/material.dart';
+import 'package:main_project/app/need_job/payment/view_model/post_payment.dart';
+import 'package:main_project/app/need_job/view/widgets/datepick.dart';
 import 'package:main_project/app/need_job/view/widgets/dropdown.dart';
+import 'package:main_project/app/need_job/view/widgets/job_category.dart';
+import 'package:main_project/app/need_job/view/widgets/textfield_jobpost_widget.dart';
+import 'package:main_project/app/need_job/view_model/jobpost_post_provider.dart';
 import 'package:main_project/app/routes/routes.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
+import 'package:provider/provider.dart';
 
 class ScreenNeedJob extends StatelessWidget {
   const ScreenNeedJob({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        elevation: 0,
-       backgroundColor: kWhiteColor,
-        leading: InkWell(
-          onTap: (){
-            Routes.popscreen();
-          },
-          child: const Icon(
-            Icons.arrow_back_ios,
-            color: kBlackColor,
+    Size size = MediaQuery.of(context).size;
+    final provider = context.read<NeedJobPostProvider>();
+    return Consumer<PostJobRazorpayProvider>(
+      builder: (context, value, child) => Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            "*You need to pay ₹50 to make a post*",
+            style: gFontsOleo(cl: kAvailableRed),
+          ),
+          elevation: 0,
+          backgroundColor: kWhiteColor,
+          leading: InkWell(
+            onTap: () {
+              Routes.popscreen();
+            },
+            child: const Icon(
+              Icons.arrow_back_ios,
+              color: kBlackColor,
+            ),
+          ),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Form(
+            key: provider.formKey,
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    DropdownWidget(
+                      title: 'District *',
+                    ),
+                    DropdownWidget(
+                      title: 'City *',
+                    ),
+                  ],
+                ),
+                kheight20,
+                TextFieldJobpostWidget(
+                  hinttitle: 'Name of your profession',
+                  title: 'Job title *',
+                  maxlength: 20,
+                  validator: provider.checkValidate,
+                  widthSize: size.width * .6,
+                  keyboardType: TextInputType.text,
+                  controller: provider.titleTextController,
+                ),
+                kheight30,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    DatepickWidget(provider: provider),
+                    const JobCategoryDropDown()
+                  ],
+                ),
+                kheight30,
+                TextFieldJobpostWidget(
+                  hinttitle: 'Short note about the job profile',
+                  title: 'Description *',
+                  validator: provider.checkValidate,
+                  widthSize: 350,
+                  keyboardType: TextInputType.text,
+                  controller: provider.descrpTextController,
+                ),
+                kheight30,
+                TextFieldJobpostWidget(
+                  textPrefix: '+91 -',
+                  hinttitle: "Should'nt be same as reg *",
+                  title: 'Phone number *',
+                  validator: provider.checkPhone,
+                  maxlength: 10,
+                  widthSize: size.width * .7,
+                  keyboardType: TextInputType.number,
+                  controller: provider.phoneNumController,
+                ),
+                kheight30,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextFieldJobpostWidget(
+                      hinttitle: 'Your locality',
+                      title: 'Place *',
+                      validator: provider.checkValidate,
+                      maxlength: 20,
+                      widthSize: 160,
+                      keyboardType: TextInputType.text,
+                      controller: provider.placeTextController,
+                    ),
+                    TextFieldJobpostWidget(
+                      hinttitle: 'labour rate per day',
+                      title: 'Your labour price *',
+                      maxlength: 6,
+                      validator: provider.checkValidate,
+                      widthSize: 160,
+                      keyboardType: TextInputType.number,
+                      controller: provider.rateTextController,
+                    ),
+                  ],
+                ),
+                kheight30,
+                TextFieldJobpostWidget(
+                  hinttitle: 'Your current address',
+                  title: 'Address *',
+                  widthSize: 350,
+                  validator: provider.checkValidate,
+                  keyboardType: TextInputType.text,
+                  controller: provider.addressTextController,
+                ),
+                kheight30,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        if (provider.formKey.currentState!.validate()) {
+                          provider.postJobData(context);
+                          // value.jobpostPayment(provider.titleTextController);
+                        }
+                      },
+                      child: Container(
+                        width: size.width / 1.4,
+                        height: size.width * .13,
+                        decoration: BoxDecoration(
+                            color: kGreenColor,
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Center(
+                          child: Text(
+                            'Save & Make payment',
+                            style: poppins(fsize: 16, fcolor: kWhiteColor),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                kheight30,
+              ],
+            ),
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              kheight30,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  DropdownWidget(
-                    title: 'District *',
-                  ),
-                  DropdownWidget(
-                    title: 'City *',
-                  ),
-                ],
-              ),
-              kheight30,
-              JobDesTextFieldWidget(
-                title: 'Phone number *',
-                hintText: 'Number should not be same as reg*',
-              ),
-              kheight30,
-              DropdownWidget(
-                title: 'Job Category *',
-              ),
-              kheight30,
-              JobDesTextFieldWidget(
-                title: 'Jole role *',
-              ),
-              kheight30,
-              JobDesTextFieldWidget(
-                title: 'Jole description ',
-              ),
-              kheight30,
-              JobDesTextFieldWidget(
-                title: 'Address ',
-              ),
-              kheight30,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Place',
-                        style: dmSans(
-                            fcolor: kGreenColor,
-                            fsize: 20,
-                            fweight: FontWeight.w700),
-                      ),
-                      SizedBox(
-                          width: 150,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              hintStyle: TextStyle(
-                                  color: kBlackColor.withOpacity(.4),
-                                  fontSize: 14),
-                            ),
-                          ))
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Rate /day',
-                        style: dmSans(
-                            fcolor: kGreenColor,
-                            fsize: 20,
-                            fweight: FontWeight.w700),
-                      ),
-                      SizedBox(
-                          width: 150,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              hintStyle: TextStyle(
-                                  color: kBlackColor.withOpacity(.4),
-                                  fontSize: 14),
-                            ),
-                          ))
-                    ],
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class JobDesTextFieldWidget extends StatelessWidget {
-  String title;
-  String? hintText;
-
-  JobDesTextFieldWidget({Key? key, required this.title, this.hintText})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style:
-              dmSans(fcolor: kGreenColor, fsize: 20, fweight: FontWeight.w700),
-        ),
-        SizedBox(
-            width: 250,
-            child: TextFormField(
-              decoration: InputDecoration(
-                hintText: hintText,
-                hintStyle:
-                    TextStyle(color: kBlackColor.withOpacity(.4), fontSize: 14),
-              ),
-            ))
-      ],
     );
   }
 }

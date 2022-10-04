@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:main_project/app/payment/view_model/payment_provider.dart';
 import 'package:main_project/app/rent_tools/model/all_rent_model.dart';
+import 'package:main_project/app/rent_tools/payment/view_model/payment_provider.dart';
 import 'package:main_project/app/rent_tools/view_model/rent_item_view_provider.dart';
 import 'package:main_project/app/routes/routes.dart';
 import 'package:main_project/app/user_profile/view_model/userprofile_provider.dart';
@@ -75,8 +75,8 @@ class ScreenRentItemView extends StatelessWidget {
               ),
               kheight5,
               Text(
-                list.discriptions.toString(),
-                style: roboto(fcolor: kGreenColor.withOpacity(.6)),
+                list.discriptions.toString().toUpperCase(),
+                style: roboto(fcolor: kGreenColor.withOpacity(.6),flettrspc: 1),
               ),
               kheight,
               Row(

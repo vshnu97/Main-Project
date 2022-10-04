@@ -46,4 +46,5 @@ class UserProfileProvider extends ChangeNotifier {
     await storage.write(key: 'userEmail', value: value.email);
     await storage.write(key: 'userPhone', value: value.mobile);
   }
+ 
 }
