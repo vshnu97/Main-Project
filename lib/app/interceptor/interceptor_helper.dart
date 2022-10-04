@@ -11,6 +11,7 @@ class InterceptorHelper {
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (response, handler) async {
         final token = await getToken();
+        log(token.toString());
         dio.interceptors.clear();
         response.headers.addAll({
           "Authorization": "Bearer $token",
@@ -20,8 +21,9 @@ class InterceptorHelper {
       onError: (e, handler) async {
         if (e.response?.statusCode == 403) {
           final refreshToken = await getRefreshToken();
+          log(refreshToken.toString());
           try {
-            await dio.post('http://10.0.2.0:8000/user/refresh/',
+            await dio.post('http://10.0.2.2:8000/user/refresh/',
                 data: {'refresh': refreshToken}).then((value) async {
               if (value.statusCode == 200) {
                 final object = NewToken.fromJSON(value.data);

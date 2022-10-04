@@ -14,7 +14,7 @@ class OtpAPI {
       final network = await networkCheck();
       if (network) {
         Response response = await dio.post(Url.otp, data: dataQ.toJson());
-        if (response.statusCode == 200) {
+        if (response.statusCode! >= 200 && response.statusCode! <= 299) {
           return ResponseOTP.fromJson(response.data);
         } else {
           return ResponseOTP(message: 'Unknown error');

@@ -36,14 +36,14 @@ class ToolsCategoryListWidget extends StatelessWidget {
                   width: 105,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: kPinkHomeColor),
+                      color: kPinkHomeColor.withOpacity(.6)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Image.asset(
                         provider.categoryImages[index],
-                        height: 60,
+                        height: 55,
                       ),
                       Text(
                         provider.categoryTools[index],

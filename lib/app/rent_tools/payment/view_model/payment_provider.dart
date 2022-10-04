@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:main_project/app/payment/view/screen_payment_success.dart';
 import 'package:main_project/app/rent_tools/model/all_rent_model.dart';
+import 'package:main_project/app/rent_tools/payment/view/screen_payment_success.dart';
 import 'package:main_project/app/rent_tools/view/screen_rent.dart';
 import 'package:main_project/app/rent_tools/view/screen_rentafter_payment.dart';
 import 'package:main_project/app/routes/routes.dart';
@@ -54,7 +54,7 @@ class RazorpayProvider extends ChangeNotifier {
       'name': 'On-Demand',
       'description': list.title,
       'prefill': {'contact': phone, 'email': email},
-      'timeout': 120,
+      'timeout': 180,
       'modal': {
         'confirm_close': true,
         'external': {
