@@ -7,19 +7,15 @@ import 'package:image_picker/image_picker.dart';
 import 'package:main_project/app/interceptor/interceptor_helper.dart';
 
 class LendProvider extends ChangeNotifier {
+//*********************************** Screen Lend *****************************************//
+  final formKey = GlobalKey<FormState>();
+
   final titleTextController = TextEditingController();
   final descrpTextController = TextEditingController();
   final phoneNumController = TextEditingController();
   final placeTextController = TextEditingController();
   final rateTextController = TextEditingController();
   final addressTextController = TextEditingController();
-  // String? get errorText {
-  //   final text = titleTextController.value.text;
-  //   if (text.isEmpty) {
-  //     return 'Can\'t be empty';
-  //   }
-  //   return null;
-  // }
 
   String image1 = '';
   String image2 = '';
@@ -30,6 +26,20 @@ class LendProvider extends ChangeNotifier {
   String? img1File;
   String? img2File;
   String? img3File;
+
+  String? checkValidate(String? val) {
+    if (val == null) return null;
+    if (val.trim().isEmpty) return 'This field is required *';
+    return null;
+  }
+
+  String? checkPhone(String? val) {
+    if (val == null) return null;
+    if (val.trim().isEmpty) return 'This field is required *';
+    if (val.length <= 9) return 'Enter a valid number';
+    return null;
+  }
+
 //******************************** Pick Image ********************************//
   pickImage1() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -132,7 +142,7 @@ class LendProvider extends ChangeNotifier {
   String? districtDropdown;
   bool disableDropdown = true;
   changeDistrict(value) {
-    if (value =='Kozhikode') {
+    if (value == 'Kozhikode') {
       filterkozhikode();
     }
     districtDropdown = value;
@@ -151,11 +161,9 @@ class LendProvider extends ChangeNotifier {
         // ignore: sort_child_properties_last
         child: Center(
           child: Text(kozhikode[key].toString()),
-
         ),
         value: kozhikode[key],
       ));
-     
     }
   }
 

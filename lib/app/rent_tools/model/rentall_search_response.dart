@@ -1,32 +1,22 @@
-class RentModelClass {
-  RentModelClass({
-    this.count,
-    this.next,
-    this.previous,
+class SearchResponseModel {
+  SearchResponseModel({
     this.results,
-    this.message
+    this.message,
   });
 
-  int? count;
-  dynamic next;
-  dynamic previous;
-  List<Result>? results;
+  List<ResultX>? results;
   String? message;
 
-  factory RentModelClass.fromJson(Map<String, dynamic> json) => RentModelClass(
-        count: json["count"],
-        next: json["next"],
-        previous: json["previous"],
+  factory SearchResponseModel.fromJson(Map<String, dynamic> json) =>
+      SearchResponseModel(
         results: json["results"] == null
             ? null
-            : List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
+            : List<ResultX>.from(json["results"].map((x) => ResultX.fromJson(x))),
       );
-
-  
 }
 
-class Result {
-  Result({
+class ResultX {
+  ResultX({
     this.id,
     this.category,
     this.district,
@@ -78,7 +68,7 @@ class Result {
   int? user;
   int? bookedPerson;
 
-  factory Result.fromJson(Map<String, dynamic> json) => Result(
+  factory ResultX.fromJson(Map<String, dynamic> json) => ResultX(
         id: json["id"],
         category: json["category"] == null
             ? null
@@ -88,7 +78,8 @@ class Result {
             : District.fromJson(json["district"]),
         city: json["city"] == null ? null : City.fromJson(json["city"]),
         title: json["title"],
-        discriptions: json["discriptions"],
+        discriptions:
+            json["discriptions"],
         subMobile: json["sub_mobile"],
         mobile: json["mobile"],
         address: json["address"],
@@ -107,37 +98,9 @@ class Result {
         validAt:
             json["valid_at"] == null ? null : DateTime.parse(json["valid_at"]),
         user: json["user"],
-        bookedPerson: json["booked_person"],
+        bookedPerson:
+            json["booked_person"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "category": category == null ? null : category!.toJson(),
-        "district": district == null ? null : district!.toJson(),
-        "city": city == null ? null : city!.toJson(),
-        "title": title,
-        "discriptions": discriptions,
-        "sub_mobile": subMobile,
-        "mobile": mobile,
-        "address": address,
-        "place": place,
-        "image": image,
-        "image1": image1,
-        "image2": image2,
-        "payment": payment,
-        "rate": rate,
-        "price_in": priceIn,
-        "available": available,
-        "slug": slug,
-        "ordernumber": ordernumber,
-        "booked": booked,
-        "created_at": createdAt,
-        "valid_at": validAt == null
-            ? null
-            : "${validAt!.year.toString().padLeft(4, '0')}-${validAt!.month.toString().padLeft(2, '0')}-${validAt!.day.toString().padLeft(2, '0')}",
-        "user": user,
-        "booked_person": bookedPerson,
-      };
 }
 
 class Category {
@@ -151,7 +114,7 @@ class Category {
   int? id;
   String? name;
   String? categoryOf;
-  dynamic image;
+  dynamic? image;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
         id: json["id"],

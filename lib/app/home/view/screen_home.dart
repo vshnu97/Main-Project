@@ -17,6 +17,7 @@ class ScreenHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+       // actions: [Image.asset('')],
         backgroundColor: kWhiteColor,
         elevation: 0,
         centerTitle: true,
@@ -25,8 +26,7 @@ class ScreenHome extends StatelessWidget {
             kheight20,
             InkWell(
               onTap: () {
-              
-              Routes.push(screen: const ScreenUserProfile());
+                Routes.push(screen: const ScreenUserProfile());
               },
               child: Text(
                 'Discover Now',
