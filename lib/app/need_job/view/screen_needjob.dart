@@ -41,7 +41,7 @@ class ScreenNeedJob extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Form(
-            key: provider.formKey,
+            key: provider.formKeys,
             child: ListView(
               physics: const BouncingScrollPhysics(),
               children: [
@@ -57,7 +57,7 @@ class ScreenNeedJob extends StatelessWidget {
                   ],
                 ),
                 kheight20,
-                TextFieldJobpostWidget(
+                TextFieldWidget(
                   hinttitle: 'Name of your profession',
                   title: 'Job title *',
                   maxlength: 20,
@@ -76,7 +76,7 @@ class ScreenNeedJob extends StatelessWidget {
                   ],
                 ),
                 kheight30,
-                TextFieldJobpostWidget(
+                TextFieldWidget(
                   hinttitle: 'Short note about the job profile',
                   title: 'Description *',
                   validator: provider.checkValidate,
@@ -85,7 +85,7 @@ class ScreenNeedJob extends StatelessWidget {
                   controller: provider.descrpTextController,
                 ),
                 kheight30,
-                TextFieldJobpostWidget(
+                TextFieldWidget(
                   textPrefix: '+91 -',
                   hinttitle: "Should'nt be same as reg *",
                   title: 'Phone number *',
@@ -99,7 +99,7 @@ class ScreenNeedJob extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextFieldJobpostWidget(
+                    TextFieldWidget(
                       hinttitle: 'Your locality',
                       title: 'Place *',
                       validator: provider.checkValidate,
@@ -108,7 +108,7 @@ class ScreenNeedJob extends StatelessWidget {
                       keyboardType: TextInputType.text,
                       controller: provider.placeTextController,
                     ),
-                    TextFieldJobpostWidget(
+                    TextFieldWidget(
                       hinttitle: 'labour rate per day',
                       title: 'Your labour price *',
                       maxlength: 6,
@@ -120,7 +120,7 @@ class ScreenNeedJob extends StatelessWidget {
                   ],
                 ),
                 kheight30,
-                TextFieldJobpostWidget(
+                TextFieldWidget(
                   hinttitle: 'Your current address',
                   title: 'Address *',
                   widthSize: 350,
@@ -134,9 +134,8 @@ class ScreenNeedJob extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        if (provider.formKey.currentState!.validate()) {
+                        if (provider.formKeys.currentState!.validate()) {
                           provider.postJobData(context);
-                          // value.jobpostPayment(provider.titleTextController);
                         }
                       },
                       child: Container(

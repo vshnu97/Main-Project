@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:main_project/app/need_job/payment/view/screen_postjob_success.dart';
 import 'package:main_project/app/need_job/view/screen_needjob.dart';
+import 'package:main_project/app/need_job/view_model/jobpost_post_provider.dart';
 import 'package:main_project/app/rent_tools/payment/view/screen_payment_success.dart';
 import 'package:main_project/app/routes/routes.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -17,12 +19,8 @@ class PostJobRazorpayProvider extends ChangeNotifier {
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    print('success');
-    Routes.push(
-        screen: const ScreenPaymentSuccess(
-            image: 'assests/paymentsucess.png',
-            title: "Payment successful",
-            child: ScreenJobPostSuccess()));
+    log('Payment success');
+    NeedJobPostProvider().getJobPostData();
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {

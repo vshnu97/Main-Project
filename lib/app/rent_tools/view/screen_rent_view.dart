@@ -100,7 +100,7 @@ class ScreenRentItemView extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    list.city!.city.toString(),
+                     list.city!.city.toString(),
                     style: dmMono(
                         fsize: 19,
                         fweight: FontWeight.w600,

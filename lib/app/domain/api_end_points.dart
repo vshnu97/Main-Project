@@ -4,7 +4,9 @@ class Url {
   static const signUp = 'user/register/';
   static const otp = 'user/verify/';
   static const lend = 'rent/post/';
-  static const rentAll ='rent/rentall/';
-  static const userProfile='user/profile/';
-  static const lendpost='job/jobpost/';
+  static const rentAll = 'rent/rentall/';
+  static const userProfile = 'user/profile/';
+  static const jobPost = 'job/jobpost/';
+  static const jobpostpPaid = 'job/payedjob/';
+  static const rentAllSearch = '/rent/search/?';
 }

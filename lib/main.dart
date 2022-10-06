@@ -18,8 +18,7 @@ class MyApp extends StatelessWidget {
         scaffoldMessengerKey: Providers.rootScaffoldMessengerKey,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          scaffoldBackgroundColor: kWhiteColor,
-        ),
+            scaffoldBackgroundColor: kWhiteColor, primarySwatch: Colors.teal),
         home: const ScreenSplash());
   }
 }

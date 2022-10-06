@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 
-class TextFieldJobpostWidget extends StatelessWidget {
+class TextFieldWidget extends StatelessWidget {
   final String title;
   final String hinttitle;
   final double widthSize;
@@ -12,7 +12,7 @@ class TextFieldJobpostWidget extends StatelessWidget {
   final String? Function(String?)? validator;
 final TextEditingController controller;
   final TextInputType keyboardType;
-  const TextFieldJobpostWidget(
+  const TextFieldWidget(
       {Key? key,
       this.textPrefix,
       this.validator,

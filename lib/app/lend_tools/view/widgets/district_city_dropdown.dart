@@ -11,39 +11,45 @@ class DropdownDistrictCity extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          " District *",
-          style:
-              dmSans(fcolor: kGreenColor, fsize: 18, fweight: FontWeight.w700),
-        ),
-        Consumer<LendProvider>(
-          builder: (context, provider, child) => DropdownButton(
-            style: viga(
-                fweight: FontWeight.w500, fcolor: kGreenColor.withOpacity(.5)),
-            hint: const Text(
-              'Select Category',
-              style: TextStyle(
-                  overflow: TextOverflow.ellipsis,
-                  color: kGreyColor,
-                  fontSize: 14),
+        Column(
+          children: [
+            Text(
+              " District *",
+              style: dmSans(
+                  fcolor: kGreenColor, fsize: 18, fweight: FontWeight.w700),
             ),
-            icon: const Icon(
-              Icons.keyboard_arrow_down,
-              color: kGreenColor,
+            Consumer<LendProvider>(
+              builder: (context, provider, child) => DropdownButton(
+                style: viga(
+                    fweight: FontWeight.w500,
+                    fcolor: kGreenColor.withOpacity(.5)),
+                hint: const Text(
+                  'Select Category',
+                  style: TextStyle(
+                      overflow: TextOverflow.ellipsis,
+                      color: kGreyColor,
+                      fontSize: 14),
+                ),
+                icon: const Icon(
+                  Icons.keyboard_arrow_down,
+                  color: kGreenColor,
+                ),
+                value: provider.districtDropdown,
+                items: provider.districts.map((districtsname) {
+                  return DropdownMenuItem(
+                    value: districtsname,
+                    child: Text(districtsname),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  provider.changeDistrict(value);
+                },
+              ),
             ),
-            value: provider.districtDropdown,
-            items: provider.districts.map((districtsname) {
-              return DropdownMenuItem(
-                value: districtsname,
-                child: Text(districtsname),
-              );
-            }).toList(),
-            onChanged: (value) {
-              provider.changeDistrict(value);
-            },
-          ),
+          ],
         ),
         Column(
           children: [
@@ -64,7 +70,11 @@ class DropdownDistrictCity extends StatelessWidget {
                         color: kGreyColor,
                         fontSize: 14),
                   ),
-                  disabledHint: const Text('Select a district first'),
+                  disabledHint: const Text('Select a district first',
+                      style: TextStyle(
+                          overflow: TextOverflow.ellipsis,
+                          color: kGreyColor,
+                          fontSize: 14)),
                   icon: const Icon(
                     Icons.keyboard_arrow_down,
                     color: kGreenColor,

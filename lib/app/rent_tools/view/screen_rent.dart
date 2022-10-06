@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:main_project/app/rent_tools/view/widget/latest_tools.dart';
 import 'package:main_project/app/rent_tools/view/widget/tools_category.dart';
+import 'package:main_project/app/rent_tools/view_model/rent_all_provider.dart';
 import 'package:main_project/app/routes/routes.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
+import 'package:provider/provider.dart';
 
 class ScreenRentTools extends StatelessWidget {
   const ScreenRentTools({Key? key}) : super(key: key);
@@ -12,6 +14,7 @@ class ScreenRentTools extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final heightX = MediaQuery.of(context).size.height;
+    final provider = context.read<RentAllProvider>();
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffe8e9ec),
@@ -43,6 +46,13 @@ class ScreenRentTools extends StatelessWidget {
                   right: 35,
                   child: SizedBox(
                       child: TextFormField(
+                    onChanged: (value) {
+                      if (value.isEmpty) {
+                        return;
+                      }
+
+                      provider.onSearchRent(value);
+                    },
                     decoration: InputDecoration(
                       suffixIcon: const Icon(Icons.search,
                           color: kWhiteColor, size: 30),
@@ -86,7 +96,7 @@ class ScreenRentTools extends StatelessWidget {
                         fcolor: kBlackColor,
                       )),
                   kheight,
-                  ToolsCategoryListWidget()
+                  const ToolsCategoryListWidget()
                 ],
               ),
               kheight15,
