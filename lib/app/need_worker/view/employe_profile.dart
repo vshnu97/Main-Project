@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:main_project/app/hire_employee/view/employe_afterpay.dart';
+import 'package:main_project/app/need_worker/view/employe_afterpay.dart';
 import 'package:main_project/app/routes/routes.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
@@ -128,7 +128,6 @@ class ScreenEmployeProfile extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    // RoutesScreen().pushScreen(context, const ScreenEmployePaymentProfile());
                     Routes.push(screen: const ScreenEmployePaymentProfile());
                   },
                   child: Container(

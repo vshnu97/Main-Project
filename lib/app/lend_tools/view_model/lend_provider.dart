@@ -88,8 +88,8 @@ class LendProvider extends ChangeNotifier {
       'slug': "slug",
       "price_in": "rate_day",
       'image': await MultipartFile.fromFile(image1, filename: img1File),
-      'image1': await MultipartFile.fromFile(image2, filename: img1File),
-      'image2': await MultipartFile.fromFile(image3, filename: img1File),
+      'image1': await MultipartFile.fromFile(image2, filename: img2File),
+      'image2': await MultipartFile.fromFile(image3, filename: img3File),
       'date': date
     });
 

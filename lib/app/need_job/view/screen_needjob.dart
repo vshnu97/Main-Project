@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:main_project/app/need_job/payment/view_model/post_payment.dart';
 import 'package:main_project/app/need_job/view/widgets/datepick.dart';
-import 'package:main_project/app/need_job/view/widgets/dropdown.dart';
+import 'package:main_project/app/need_job/view/widgets/district_city_dropdown.dart';
 import 'package:main_project/app/need_job/view/widgets/job_category.dart';
 import 'package:main_project/app/need_job/view/widgets/textfield_jobpost_widget.dart';
 import 'package:main_project/app/need_job/view_model/jobpost_post_provider.dart';
@@ -45,17 +45,7 @@ class ScreenNeedJob extends StatelessWidget {
             child: ListView(
               physics: const BouncingScrollPhysics(),
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    DropdownWidget(
-                      title: 'District *',
-                    ),
-                    DropdownWidget(
-                      title: 'City *',
-                    ),
-                  ],
-                ),
+                const JobPostDropdownDistrictCity(),
                 kheight20,
                 TextFieldWidget(
                   hinttitle: 'Name of your profession',

@@ -9,4 +9,7 @@ class Url {
   static const jobPost = 'job/jobpost/';
   static const jobpostpPaid = 'job/payedjob/';
   static const rentAllSearch = '/rent/search/?';
+  static const jobCategory = 'job/jobcate/';
+  static const jobDistrict = 'job/showdistrict';
+  static const jobCity = 'job/allcity/';
 }

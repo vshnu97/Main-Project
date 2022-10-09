@@ -48,14 +48,17 @@ class LoginTexfieldWidget extends StatelessWidget {
             hintText: hinttext,
             hintStyle:
                 TextStyle(color: kBlackColor.withOpacity(.5), fontSize: 16),
-            suffixIcon: IconButton(
-              onPressed: () {
-                context.read<HomeProv>().passwordHide();
-              },
-              icon: Icon(context.read<HomeProv>().isObscure
-                  ? suffexicon1
-                  : suffexicon2),
-              color: kGreenColor,
+            suffixIcon: Consumer<HomeProv>(
+              builder: (context, value, child) => 
+               IconButton(
+                onPressed: () {
+                  context.read<HomeProv>().passwordHide();
+                },
+                icon: Icon(context.watch<HomeProv>().isObscure
+                    ? suffexicon1
+                    : suffexicon2),
+                color: kGreenColor,
+              ),
             )),
       ),
     );

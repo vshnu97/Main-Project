@@ -46,13 +46,13 @@ class ScreenRentTools extends StatelessWidget {
                   right: 35,
                   child: SizedBox(
                       child: TextFormField(
-                    onChanged: (value) {
-                      if (value.isEmpty) {
-                        return;
-                      }
+                    // onChanged: (value) {
+                    //   if (value.isEmpty) {
+                    //     return;
+                    //   }
 
-                      provider.onSearchRent(value);
-                    },
+                    //   provider.onSearchRent(value);
+                    // },
                     decoration: InputDecoration(
                       suffixIcon: const Icon(Icons.search,
                           color: kWhiteColor, size: 30),

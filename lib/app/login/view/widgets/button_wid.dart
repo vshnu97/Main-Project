@@ -15,26 +15,27 @@ class SignInLogInButtonWid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.read<HomeProv>();
     return SizedBox(
       width: double.infinity,
-      child: MaterialButton(
-        onPressed: onClick,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
-        color: kGreenColor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: provider.isLoading
-              ? const CupertinoActivityIndicator(
-                  color: kWhiteColor,
-                )
-              : Text(
-                  title,
-                  style: const TextStyle(
-                      color: kWhiteColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
+      child: Consumer<HomeProv>(
+        builder: (context, value, child) => MaterialButton(
+          onPressed: onClick,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
+          color: kGreenColor,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: value.isLoading
+                ? const CupertinoActivityIndicator(
+                    color: kWhiteColor,
+                  )
+                : Text(
+                    title,
+                    style: const TextStyle(
+                        color: kWhiteColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+          ),
         ),
       ),
     );
