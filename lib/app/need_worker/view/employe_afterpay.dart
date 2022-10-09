@@ -31,8 +31,6 @@ class ScreenEmployePaymentProfile extends StatelessWidget {
                     const Spacer(),
                     InkWell(
                         onTap: () {
-                          // RoutesScreen()
-                          //     .pushScreen(context, const ScreenHome());
                           Routes.push(screen: const ScreenHome());
                         },
                         child: const Icon(Icons.home, color: kWhiteColor))

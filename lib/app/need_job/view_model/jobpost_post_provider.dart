@@ -1,7 +1,11 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:main_project/app/login/view/widgets/snackbar.dart';
 import 'package:main_project/app/need_job/api%20service/api.dart';
+import 'package:main_project/app/need_job/model/job_category_model.dart';
+import 'package:main_project/app/need_job/model/job_city_response.dart';
+import 'package:main_project/app/need_job/model/job_district_response.dart';
 import 'package:main_project/app/need_job/model/jobpost_paid_response.dart';
 import 'package:main_project/app/need_job/model/jobpost_post.dart';
 import 'package:main_project/app/need_job/model/jobpost_post_response.dart';
@@ -13,6 +17,12 @@ import 'package:provider/provider.dart';
 import '../payment/view/screen_postjob_success.dart';
 
 class NeedJobPostProvider extends ChangeNotifier {
+  NeedJobPostProvider() {
+    getCategory();
+    getDistrict();
+    getCity();
+  }
+
   //*********************************** Screen view *****************************************//
   final formKeys = GlobalKey<FormState>();
 
@@ -30,6 +40,7 @@ class NeedJobPostProvider extends ChangeNotifier {
   }
 
   //*********************************** Api response manage *****************************************//
+
   final titleTextController = TextEditingController();
   final descrpTextController = TextEditingController();
   final phoneNumController = TextEditingController();
@@ -44,12 +55,15 @@ class NeedJobPostProvider extends ChangeNotifier {
     } else if (date == null) {
       pop('Pick a date ');
       return;
+    }else if(districtId == null){
+       pop('Select a District');
+      return;
     }
     final data = JobPostModel(
-        district: 1,
+        district: districtId!,
         city: 1,
         address: addressTextController.text,
-        category: categoryValue!.toInt(),
+        category: categoryValue!,
         date: date.toString(),
         description: descrpTextController.text,
         mobile: phoneNumController.text,
@@ -111,28 +125,71 @@ class NeedJobPostProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //********************************* Category dropdown ***********************************//
-  List<String> categories = [
-    "Electrical",
-    "Plumbing",
-    "Agriculture",
-    'Cleaning',
-    'House keeping',
-    'Mechanic',
-    'Barber',
-    'Carpender',
-    'Tailor',
-    'Welder',
-    'Electronics service',
-    'Constructions',
-    'Others..'
-  ];
-  String? dropdownvalue;
-  int index = 0;
+  //*********************************Api response(Category dropdown) ***********************************//
+
+  List availableList = [];
   int? categoryValue;
-  changeDropName(dynamic value) {
-    dropdownvalue = value;
-    categoryValue = (categories.indexOf(value) + 1);
+
+  getCategory() async {
+    JobCategoryResponse? response = await NeedJobAPI().getCategoryApi();
+    if (response != null) {
+      availableList.clear();
+      for (var element in response.listOfSlots!) {
+        availableList.add(element);
+      }
+      notifyListeners();
+    } else {
+      pop('Something went Wrong');
+    }
+  }
+
+  //*********************************Api response(District dropdown) ***********************************//
+
+  List districtList = [];
+  int? districtId;
+
+  getDistrict() async {
+    JobDistrictResponseModel? response = await NeedJobAPI().getDistrictApi();
+    if (response != null) {
+      districtList.clear();
+      for (var element in response.districtsList!) {
+        districtList.add(element);
+      }
+      notifyListeners();
+    } else {
+      pop('Something went Wrong');
+    }
+  }
+  //*********************************Api response(City dropdown) ***********************************//
+
+  List citytList = [];
+
+  getCity() async {
+    log('api method');
+    JobCityResponseModel? response = await NeedJobAPI().getCityApi();
+    if (response != null) {
+      citytList.clear();
+      for (var element in response.citiesList!) {
+        citytList.add(element);
+        log('city');
+        log(citytList.toString());
+      }
+      notifyListeners();
+    } else {
+      pop('Something went Wrong');
+    }
+  }
+
+  List cityTemp = [];
+  changeCity(id) {
+    log(id.toString());
+    cityTemp.clear();
+
+    for (var value in citytList) {
+      if (id == value.district) {
+        cityTemp.add(value);
+      }
+    }
     notifyListeners();
   }
 

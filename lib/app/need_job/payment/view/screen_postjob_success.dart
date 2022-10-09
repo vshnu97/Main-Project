@@ -46,10 +46,10 @@ class ScreenJobPostSuccess extends StatelessWidget {
                           ),
                           kheight,
                           Text(
-                            response!.category.toString(),
-                            style: redRose(fweight: FontWeight.w800, fsize: 17),
+                            response!.category!.name.toString().toUpperCase(),
+                            style: dmSans(fweight: FontWeight.w800, fsize: 17),
                           ),
-                          kheight20,
+                          kheight15,
                           Text(
                             response!.discriptions.toString(),
                             style: roboto(
@@ -76,26 +76,30 @@ class ScreenJobPostSuccess extends StatelessWidget {
                           ),
                           kheight,
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                response!.city!.city.toString(),
-                                style: dmMono(
-                                    fsize: 19,
-                                    fweight: FontWeight.w600,
-                                    fcolor: kGreenColor),
+                              Row(
+                                children: [
+                                  Text(
+                                    response!.city!.city.toString(),
+                                    style: dmMono(
+                                        fsize: 19,
+                                        fweight: FontWeight.w600,
+                                        fcolor: kGreenColor),
+                                  ),
+                                  Text(
+                                    "| ${response!.place}",
+                                    style: dmMono(
+                                        fsize: 19,
+                                        fweight: FontWeight.w600,
+                                        fcolor: kGreenColor),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                "| ${response!.place}",
-                                style: dmMono(
-                                    fsize: 19,
-                                    fweight: FontWeight.w600,
-                                    fcolor: kGreenColor),
-                              ),
-                              kwidth70,
                               Image.asset('assests/location.png')
                             ],
                           ),
-                          kheight5,
+                          kheight,
                           Text(
                             response!.address.toString().toUpperCase(),
                             textAlign: TextAlign.start,
@@ -103,15 +107,20 @@ class ScreenJobPostSuccess extends StatelessWidget {
                                 fcolor: kGreenColor.withOpacity(.6),
                                 flettrspc: 0),
                           ),
-                          kheight,
-                          Text(
-                            "Payment completed",
-                            style: roboto(
-                                fweight: FontWeight.w800,
-                                fsize: 16,
-                                fcolor: kGreenColor),
-                          ),
-                          kheight30
+                          kheight30,
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   children: [
+                          //     Text(
+                          //       "Payment done",
+                          //       style: roboto(
+                          //         fweight: FontWeight.w800,
+                          //         fsize: 16,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          kheight20
                         ],
                       ),
                     ),
@@ -126,7 +135,7 @@ class ScreenJobPostSuccess extends StatelessWidget {
                     children: const [
                       CircleAvatar(
                         radius: 100,
-                       // backgroundImage: ,
+                        // backgroundImage: ,
                       )
                     ],
                   ),
@@ -179,5 +188,4 @@ class ScreenJobPostSuccess extends StatelessWidget {
       ),
     );
   }
- 
 }
