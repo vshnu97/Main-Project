@@ -3,6 +3,7 @@ import 'package:main_project/app/lend_tools/view_model/lend_provider.dart';
 import 'package:main_project/app/login/view_model/login.dart';
 import 'package:main_project/app/need_job/payment/view_model/post_payment.dart';
 import 'package:main_project/app/need_job/view_model/jobpost_post_provider.dart';
+import 'package:main_project/app/need_worker/view_model/need_worker_provider.dart';
 import 'package:main_project/app/rent_tools/payment/view_model/payment_provider.dart';
 import 'package:main_project/app/rent_tools/view_model/rent_all_provider.dart';
 import 'package:main_project/app/rent_tools/view_model/rent_item_view_provider.dart';
@@ -39,6 +40,8 @@ class Providers {
             create: ((context) => NeedJobPostProvider())),
         ChangeNotifierProvider<PostJobRazorpayProvider>(
             create: ((context) => PostJobRazorpayProvider())),
+            ChangeNotifierProvider<NeedWorkerProvider>(
+            create: ((context) => NeedWorkerProvider())),
       ],
       child: const MyApp(),
     );

@@ -86,8 +86,6 @@ class NeedJobAPI {
       if (network) {
         Response response = await dio.get("${Url.baseUrl}${Url.jobCategory}");
 
-        log(response.toString());
-
         return JobCategoryResponse.fromJson(response.data);
       } else {
         return JobCategoryResponse(message: 'Unknown error');

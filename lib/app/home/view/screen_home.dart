@@ -17,7 +17,6 @@ class ScreenHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // actions: [Image.asset('')],
         backgroundColor: kWhiteColor,
         elevation: 0,
         centerTitle: true,
@@ -116,8 +115,10 @@ class HomeContainerWid extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 5),
       width: double.infinity,
       height: heightX * .17,
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(15), color: color),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: color,
+      ),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 10, 5, 10),
         child: Row(
