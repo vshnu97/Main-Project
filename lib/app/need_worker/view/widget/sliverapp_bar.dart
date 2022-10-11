@@ -35,7 +35,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                     child:
                         const Icon(Icons.arrow_back_ios, color: kWhiteColor)),
                 elevation: 0.0,
-                title: Opacity(  
+                title: Opacity(
                     opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
                     child: const Text("Test")),
               ),

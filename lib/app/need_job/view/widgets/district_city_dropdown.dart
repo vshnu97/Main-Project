@@ -49,7 +49,6 @@ class JobPostDropdownDistrictCity extends StatelessWidget {
                   }).toList(),
                   onChanged: (String? value) {
                     provider.districtId = int.tryParse(value!);
-                    provider.changeCity(value);
                   },
                 ),
               ),
@@ -62,7 +61,7 @@ class JobPostDropdownDistrictCity extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                " District *",
+                " City *",
                 style: dmSans(
                     fcolor: kGreenColor, fsize: 18, fweight: FontWeight.w700),
               ),
@@ -82,10 +81,10 @@ class JobPostDropdownDistrictCity extends StatelessWidget {
                     Icons.keyboard_arrow_down,
                     color: kGreenColor,
                   ),
-                  items: provider.cityTemp.map((districtsname) {
+                  items: provider.citytList.map((districtsname) {
                     return DropdownMenuItem<String>(
                       value: districtsname.id.toString(),
-                      child: Text(districtsname.district.toString()),
+                      child: Text(districtsname.city .toString()),
                     );
                   }).toList(),
                   onChanged: (String? value) {},

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:main_project/app/home/view/screen_home.dart';
 import 'package:main_project/app/need_job/model/jobpost_paid_response.dart';
+import 'package:main_project/app/need_job/view_model/jobpost_post_provider.dart';
 import 'package:main_project/app/routes/routes.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
+import 'package:provider/provider.dart';
 
 class ScreenJobPostSuccess extends StatelessWidget {
   JobPostPaidResponseModel? response;
@@ -12,6 +14,7 @@ class ScreenJobPostSuccess extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<NeedJobPostProvider>();
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -132,10 +135,11 @@ class ScreenJobPostSuccess extends StatelessWidget {
                   right: 0,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       CircleAvatar(
                         radius: 100,
-                        // backgroundImage: ,
+                        backgroundImage: AssetImage(
+                            provider.categoryImage(response!.category!.name)),
                       )
                     ],
                   ),

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:main_project/app/login/view/widgets/snackbar.dart';
 import 'package:main_project/app/need_job/api%20service/api.dart';
@@ -24,6 +22,7 @@ class NeedJobPostProvider extends ChangeNotifier {
   }
 
   //*********************************** Screen view *****************************************//
+
   final formKeys = GlobalKey<FormState>();
 
   String? checkValidate(String? val) {
@@ -55,8 +54,8 @@ class NeedJobPostProvider extends ChangeNotifier {
     } else if (date == null) {
       pop('Pick a date ');
       return;
-    }else if(districtId == null){
-       pop('Select a District');
+    } else if (districtId == null) {
+      pop('Select a District');
       return;
     }
     final data = JobPostModel(
@@ -152,6 +151,7 @@ class NeedJobPostProvider extends ChangeNotifier {
     JobDistrictResponseModel? response = await NeedJobAPI().getDistrictApi();
     if (response != null) {
       districtList.clear();
+
       for (var element in response.districtsList!) {
         districtList.add(element);
       }
@@ -160,38 +160,90 @@ class NeedJobPostProvider extends ChangeNotifier {
       pop('Something went Wrong');
     }
   }
-  //*********************************Api response(City dropdown) ***********************************//
 
-  List citytList = [];
+  //********************************* Api response(City dropdown) ***********************************//
+
+  List<Cities> citytList = [];
 
   getCity() async {
-    log('api method');
     JobCityResponseModel? response = await NeedJobAPI().getCityApi();
+
     if (response != null) {
       citytList.clear();
       for (var element in response.citiesList!) {
         citytList.add(element);
-        log('city');
-        log(citytList.toString());
       }
       notifyListeners();
     } else {
       pop('Something went Wrong');
     }
   }
+  // List cityTemp = [];
+  // changeCity(id) {
+  //   log(id.toString());
+  //   cityTemp.clear();
+  //   for (var element in citytList) {
+  //     log(element.district.toString());
+  //     log("=====================");
+  //   }
+  //   for (var value in citytList) {
+  //     if (id == value.id) {
+  //       cityTemp.add(value);
+  //     }
+  //   }
+  //   notifyListeners();
+  // }
 
-  List cityTemp = [];
-  changeCity(id) {
-    log(id.toString());
-    cityTemp.clear();
+  //********************************* Image category job  ***********************************//
 
-    for (var value in citytList) {
-      if (id == value.district) {
-        cityTemp.add(value);
-      }
+  String categoryImage(categoryName) {
+    switch (categoryName) {
+      case 'Electrical':
+        return imagesList[0];
+      case 'Plumbing':
+        return imagesList[1];
+      case 'Agriculture':
+        return imagesList[2];
+      case 'Cleaning':
+        return imagesList[3];
+      case 'House keeping':
+        return imagesList[4];
+      case 'Mechanic':
+        return imagesList[5];
+      case 'Barber':
+        return imagesList[6];
+      case 'Carpenter':
+        return imagesList[7];
+      case 'Tailor':
+        return imagesList[8];
+      case 'Welder':
+        return imagesList[9];
+      case 'Electronics':
+        return imagesList[10];
+      case 'Construction':
+        return imagesList[11];
+      case 'other':
+        return imagesList[12];
+      default:
+        return imagesList[12];
     }
-    notifyListeners();
   }
+
+  List<String> imagesList = [
+    'assests/electrician.png',
+    'assests/plumber.png',
+    'assests/farmer.png',
+    'assests/cleaning.png',
+    'assests/housekeeping.png',
+    'assests/mechanic.png',
+    'assests/barber.png',
+    'assests/carpenter.png',
+    'assests/tailor.png',
+    'assests/welder.png',
+    'assests/electronics.png',
+    'assests/constructor.png',
+    'assests/other.png',
+  ];
 
   @override
   void dispose() {
