@@ -1,5 +1,6 @@
+
 import 'package:flutter/material.dart';
-import 'package:main_project/app/lend_tools/view_model/lend_provider.dart';
+import 'package:main_project/app/need_job/view_model/jobpost_post_provider.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:provider/provider.dart';
@@ -21,8 +22,10 @@ class DropdownDistrictCity extends StatelessWidget {
               style: dmSans(
                   fcolor: kGreenColor, fsize: 18, fweight: FontWeight.w700),
             ),
-            Consumer<LendProvider>(
-              builder: (context, provider, child) => DropdownButton(
+            Consumer<NeedJobPostProvider>(
+              builder: (context, provider, child) {
+             
+                return DropdownButton(
                 style: viga(
                     fweight: FontWeight.w500,
                     fcolor: kGreenColor.withOpacity(.5)),
@@ -37,17 +40,18 @@ class DropdownDistrictCity extends StatelessWidget {
                   Icons.keyboard_arrow_down,
                   color: kGreenColor,
                 ),
-                value: provider.districtDropdown,
-                items: provider.districts.map((districtsname) {
+                value: provider.dropdownvalue,
+                items: provider.districtList.map((districtsname) {
                   return DropdownMenuItem(
-                    value: districtsname,
-                    child: Text(districtsname),
+                    value: districtsname.district.toString(),
+                    child: Text(districtsname.district.toString()),
                   );
                 }).toList(),
-                onChanged: (value) {
-                  provider.changeDistrict(value);
+                onChanged: (newValue) {
+                 // log(provider.districtList.indexOf(newValue));
+                  provider.changeDropName(newValue);
                 },
-              ),
+              );}
             ),
           ],
         ),
@@ -58,33 +62,33 @@ class DropdownDistrictCity extends StatelessWidget {
               style: dmSans(
                   fcolor: kGreenColor, fsize: 18, fweight: FontWeight.w700),
             ),
-            Consumer<LendProvider>(
-              builder: (context, object, child) => DropdownButton(
-                  style: viga(
-                      fweight: FontWeight.w500,
-                      fcolor: kGreenColor.withOpacity(.5)),
-                  hint: const Text(
-                    'Select city',
-                    style: TextStyle(
-                        overflow: TextOverflow.ellipsis,
-                        color: kGreyColor,
-                        fontSize: 14),
-                  ),
-                  disabledHint: const Text('Select a district first',
-                      style: TextStyle(
-                          overflow: TextOverflow.ellipsis,
-                          color: kGreyColor,
-                          fontSize: 14)),
-                  icon: const Icon(
-                    Icons.keyboard_arrow_down,
-                    color: kGreenColor,
-                  ),
-                  value: object.districtDropdown,
-                  items: object.menuItems,
-                  onChanged: object.disableDropdown
-                      ? null
-                      : (value) => object.secondChanged(value)),
-            ),
+            // Consumer<LendProvider>(
+            //   builder: (context, object, child) => DropdownButton(
+            //       style: viga(
+            //           fweight: FontWeight.w500,
+            //           fcolor: kGreenColor.withOpacity(.5)),
+            //       hint: const Text(
+            //         'Select city',
+            //         style: TextStyle(
+            //             overflow: TextOverflow.ellipsis,
+            //             color: kGreyColor,
+            //             fontSize: 14),
+            //       ),
+            //       disabledHint: const Text('Select a district first',
+            //           style: TextStyle(
+            //               overflow: TextOverflow.ellipsis,
+            //               color: kGreyColor,
+            //               fontSize: 14)),
+            //       icon: const Icon(
+            //         Icons.keyboard_arrow_down,
+            //         color: kGreenColor,
+            //       ),
+            //       value: 
+            //       items: 
+            //       onChanged: object.disableDropdown
+            //           ? null
+            //           : (value) => object.secondChanged(value)),
+            // ),
           ],
         ),
       ],

@@ -68,15 +68,16 @@ class HomeProv extends ChangeNotifier {
   FlutterSecureStorage storage = const FlutterSecureStorage();
   storedataLogin(ResponseLoginModel value) async {
     await storage.write(key: "token", value: value.token);
-    await storage.write(key: "refreshToken", value: value.refreshToken);
+    await storage.write(key: "refreshToken", value: value.refresh);
+    await storage.write(key: 'userID', value: value.id.toString());
     await storage.write(key: "login", value: "true");
   }
 
-  getToken() async {
-    return await storage.read(key: 'token');
-  }
+  // getToken() async {
+  //   return await storage.read(key: 'token');
+  // }
 
-  getRefreshToken() async {
-    return await storage.read(key: 'refreshToken');
-  }
+  // getRefreshToken() async {
+  //   return await storage.read(key: 'refreshToken');
+  // }
 }

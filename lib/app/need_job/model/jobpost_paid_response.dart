@@ -1,39 +1,11 @@
-// class JobPostPaidResponseModel {
-//   JobPostPaidResponseModel({
-//     this.payment,
-//     this.message,
-//   });
-
-//   bool? payment;
-//   String? message;
-
-//   factory JobPostPaidResponseModel.fromJson(Map<String, dynamic> json) =>
-//       JobPostPaidResponseModel(
-//         payment: json["payment"],
-//       );
-
-//   Map<String, dynamic> toJson() => {
-//         "payment": payment,
-//       };
-// }
-// To parse this JSON data, do
-//
-//     final jobPostPaidResponseModel = jobPostPaidResponseModelFromJson(jsonString);
-
-import 'dart:convert';
-
-JobPostPaidResponseModel jobPostPaidResponseModelFromJson(String str) =>
-    JobPostPaidResponseModel.fromJson(json.decode(str));
-
-String jobPostPaidResponseModelToJson(JobPostPaidResponseModel data) =>
-    json.encode(data.toJson());
-
 class JobPostPaidResponseModel {
   JobPostPaidResponseModel({
     this.id,
+    this.user,
     this.category,
     this.city,
     this.district,
+    this.bookedPerson,
     this.title,
     this.discriptions,
     this.subMobile,
@@ -48,15 +20,16 @@ class JobPostPaidResponseModel {
     this.booked,
     this.createdAt,
     this.validAt,
-    this.user,
-    this.bookedPerson,
+    this.verified,
     this.message,
   });
 
   int? id;
+  User? user;
   Category? category;
   City? city;
   District? district;
+  dynamic bookedPerson;
   String? title;
   String? discriptions;
   String? subMobile;
@@ -71,13 +44,13 @@ class JobPostPaidResponseModel {
   bool? booked;
   String? createdAt;
   DateTime? validAt;
-  int? user;
-  dynamic bookedPerson;
+  bool? verified;
   String? message;
 
   factory JobPostPaidResponseModel.fromJson(Map<String, dynamic> json) =>
       JobPostPaidResponseModel(
-        id: json["id"] ?? null,
+        id: json["id"],
+        user: json["user"] == null ? null : User.fromJson(json["user"]),
         category: json["category"] == null
             ? null
             : Category.fromJson(json["category"]),
@@ -85,50 +58,24 @@ class JobPostPaidResponseModel {
         district: json["district"] == null
             ? null
             : District.fromJson(json["district"]),
-        title: json["title"] ?? null,
-        discriptions:
-            json["discriptions"] ?? null,
-        subMobile: json["sub_mobile"] ?? null,
-        mobile: json["mobile"] ?? null,
-        address: json["address"] ?? null,
-        place: json["place"] ?? null,
-        payment: json["payment"] ?? null,
-        rate: json["rate"] ?? null,
-        available: json["available"] ?? null,
-        slug: json["slug"] ?? null,
-        ordernumber: json["ordernumber"] ?? null,
-        booked: json["booked"] ?? null,
-        createdAt: json["created_at"] ?? null,
+        bookedPerson: json["booked_person"],
+        title: json["title"],
+        discriptions: json["discriptions"],
+        subMobile: json["sub_mobile"],
+        mobile: json["mobile"],
+        address: json["address"],
+        place: json["place"],
+        payment: json["payment"],
+        rate: json["rate"],
+        available: json["available"],
+        slug: json["slug"],
+        ordernumber: json["ordernumber"],
+        booked: json["booked"],
+        createdAt: json["created_at"],
         validAt:
             json["valid_at"] == null ? null : DateTime.parse(json["valid_at"]),
-        user: json["user"] ?? null,
-        bookedPerson: json["booked_person"],
+        verified: json["verified"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id ?? null,
-        "category": category == null ? null : category!.toJson(),
-        "city": city == null ? null : city!.toJson(),
-        "district": district == null ? null : district!.toJson(),
-        "title": title ?? null,
-        "discriptions": discriptions ?? null,
-        "sub_mobile": subMobile ?? null,
-        "mobile": mobile ?? null,
-        "address": address ?? null,
-        "place": place ?? null,
-        "payment": payment ?? null,
-        "rate": rate ?? null,
-        "available": available ?? null,
-        "slug": slug ?? null,
-        "ordernumber": ordernumber ?? null,
-        "booked": booked ?? null,
-        "created_at": createdAt ?? null,
-        "valid_at": validAt == null
-            ? null
-            : "${validAt!.year.toString().padLeft(4, '0')}-${validAt!.month.toString().padLeft(2, '0')}-${validAt!.day.toString().padLeft(2, '0')}",
-        "user": user ?? null,
-        "booked_person": bookedPerson,
-      };
 }
 
 class Category {
@@ -136,23 +83,20 @@ class Category {
     this.id,
     this.name,
     this.categoryOf,
+    this.image,
   });
 
   int? id;
   String? name;
   String? categoryOf;
+  dynamic? image;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
-        id: json["id"] ?? null,
-        name: json["name"] ?? null,
-        categoryOf: json["category_of"] ?? null,
+        id: json["id"],
+        name: json["name"],
+        categoryOf: json["category_of"],
+        image: json["image"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id ?? null,
-        "name": name ?? null,
-        "category_of": categoryOf ?? null,
-      };
 }
 
 class City {
@@ -167,16 +111,10 @@ class City {
   int? district;
 
   factory City.fromJson(Map<String, dynamic> json) => City(
-        id: json["id"] ?? null,
-        city: json["city"] ?? null,
-        district: json["district"] ?? null,
+        id: json["id"],
+        city: json["city"],
+        district: json["district"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id ?? null,
-        "city": city ?? null,
-        "district": district ?? null,
-      };
 }
 
 class District {
@@ -189,12 +127,46 @@ class District {
   String? district;
 
   factory District.fromJson(Map<String, dynamic> json) => District(
-        id: json["id"] ?? null,
-        district: json["district"] ?? null,
+        id: json["id"],
+        district: json["district"],
       );
+}
 
-  Map<String, dynamic> toJson() => {
-        "id": id ?? null,
-        "district": district ?? null,
-      };
+class User {
+  User({
+    this.firstName,
+    this.lastName,
+    this.mobile,
+    this.email,
+    this.password,
+    this.isActive,
+    this.isAdmin,
+    this.isStaff,
+    this.count,
+    this.id,
+  });
+
+  String? firstName;
+  String? lastName;
+  String? mobile;
+  String? email;
+  String? password;
+  bool? isActive;
+  bool? isAdmin;
+  bool? isStaff;
+  int? count;
+  int? id;
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        firstName: json["first_name"],
+        lastName: json["last_name"],
+        mobile: json["mobile"],
+        email: json["email"],
+        password: json["password"],
+        isActive: json["is_active"],
+        isAdmin: json["is_admin"],
+        isStaff: json["is_staff"],
+        count: json["count"],
+        id: json["id"],
+      );
 }

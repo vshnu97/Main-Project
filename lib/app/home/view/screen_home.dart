@@ -1,36 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:main_project/app/home/view/home-container.dart';
 import 'package:main_project/app/lend_tools/view/screen_lend.dart';
 import 'package:main_project/app/need_job/view/screen_needjob.dart';
 import 'package:main_project/app/need_worker/view/screen_hire_employe.dart';
 import 'package:main_project/app/rent_tools/view/screen_rent.dart';
 import 'package:main_project/app/routes/routes.dart';
 import 'package:main_project/app/user_profile/view/screen_user_profile.dart';
+import 'package:main_project/app/user_profile/view_model/userprofile_provider.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
+import 'package:provider/provider.dart';
 
 class ScreenHome extends StatelessWidget {
   const ScreenHome({Key? key}) : super(key: key);
   final storage = const FlutterSecureStorage();
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        leading: SizedBox(
+          width: size.width * .05,
+          height: size.height * .05,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: () {
+                  context.read<UserProfileProvider>().getUserData();
+                  Routes.push(screen: const ScreenUserProfile());
+                },
+                child: const CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  radius: 22,
+                  backgroundImage: AssetImage('assests/profile.png'),
+                ),
+              ),
+            ],
+          ),
+        ),
         backgroundColor: kWhiteColor,
         elevation: 0,
         centerTitle: true,
         title: Column(
           children: [
             kheight20,
-            InkWell(
-              onTap: () {
-                Routes.push(screen: const ScreenUserProfile());
-              },
-              child: Text(
-                'Discover Now',
-                style: dmSans(),
-              ),
+            Text(
+              'Discover Now',
+              style: dmSans(),
             )
           ],
         ),
@@ -87,100 +106,6 @@ class ScreenHome extends StatelessWidget {
               )
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class HomeContainerWid extends StatelessWidget {
-  final Color color;
-  final String title;
-  final String description;
-  final String image;
-  final Widget screen;
-  const HomeContainerWid(
-      {Key? key,
-      required this.description,
-      required this.image,
-      required this.title,
-      required this.screen,
-      required this.color})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final heightX = MediaQuery.of(context).size.height;
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5),
-      width: double.infinity,
-      height: heightX * .17,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: color,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 10, 5, 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: dmSans(fcolor: kBlackColor, fsize: 24),
-                    ),
-                    kheight5,
-                    Text(
-                      description,
-                      style: ptMono(),
-                    ),
-                  ],
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Routes.push(screen: screen);
-                  },
-                  child: Container(
-                    width: 145,
-                    height: 38,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: kWhiteColor),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            'Get started',
-                            style: poppins(
-                                fcolor: kBlackColor,
-                                fsize: 14,
-                                flettrspc: 0,
-                                fweight: FontWeight.w400),
-                          ),
-                          Image.asset(
-                            'assests/arrow.png',
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-            CircleAvatar(
-              radius: 57,
-              backgroundImage: AssetImage(image),
-              backgroundColor: color,
-            )
-          ],
         ),
       ),
     );

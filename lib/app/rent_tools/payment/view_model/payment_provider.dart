@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:main_project/app/home/view/screen_home.dart';
+import 'package:main_project/app/need_worker/view/widget/loading.dart';
 import 'package:main_project/app/rent_tools/model/all_rent_model.dart';
 import 'package:main_project/app/rent_tools/payment/view/screen_payment_success.dart';
-import 'package:main_project/app/rent_tools/view/screen_rent.dart';
 import 'package:main_project/app/rent_tools/view/screen_rentafter_payment.dart';
 import 'package:main_project/app/routes/routes.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -18,6 +19,7 @@ class RazorpayProvider extends ChangeNotifier {
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
+     Routes.pushreplace(screen: const ScreenLoading());
     Routes.push(
         screen: const ScreenPaymentSuccess(
             image: 'assests/paymentsucess.png',
@@ -30,7 +32,7 @@ class RazorpayProvider extends ChangeNotifier {
         screen: const ScreenPaymentSuccess(
             image: 'assests/warning.png',
             title: "Something went wrong",
-            child: ScreenRentTools()));
+            child: ScreenHome()));
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
@@ -44,7 +46,7 @@ class RazorpayProvider extends ChangeNotifier {
   }
 
   FlutterSecureStorage storage = const FlutterSecureStorage();
-  option(Result list) async {
+  option(RentAll list) async {
     final email = await getUserEmail();
     final phone = await getUserMobile();
 
@@ -55,6 +57,9 @@ class RazorpayProvider extends ChangeNotifier {
       'description': list.title,
       'prefill': {'contact': phone, 'email': email},
       'timeout': 180,
+      'retry': {
+        'enabled': false,
+      },
       'modal': {
         'confirm_close': true,
         'external': {

@@ -19,9 +19,11 @@ class CategoryJobResponse {
 class FilterOnJobCateResponseModel {
   FilterOnJobCateResponseModel({
     this.id,
+    this.user,
     this.category,
     this.city,
     this.district,
+    this.bookedPerson,
     this.title,
     this.discriptions,
     this.subMobile,
@@ -36,14 +38,15 @@ class FilterOnJobCateResponseModel {
     this.booked,
     this.createdAt,
     this.validAt,
-    this.user,
-    this.bookedPerson,
+    this.verified,
   });
 
   int? id;
+  BookedPerson? user;
   Category? category;
   City? city;
   District? district;
+  BookedPerson? bookedPerson;
   String? title;
   String? discriptions;
   String? subMobile;
@@ -58,12 +61,12 @@ class FilterOnJobCateResponseModel {
   bool? booked;
   String? createdAt;
   DateTime? validAt;
-  int? user;
-  int? bookedPerson;
+  bool? verified;
 
   factory FilterOnJobCateResponseModel.fromJson(Map<String, dynamic> json) =>
       FilterOnJobCateResponseModel(
-        id: json["id"],
+        id: json["id"] ?? null,
+        user: json["user"] == null ? null : BookedPerson.fromJson(json["user"]),
         category: json["category"] == null
             ? null
             : Category.fromJson(json["category"]),
@@ -71,23 +74,64 @@ class FilterOnJobCateResponseModel {
         district: json["district"] == null
             ? null
             : District.fromJson(json["district"]),
-        title: json["title"],
-        discriptions: json["discriptions"],
-        subMobile: json["sub_mobile"],
-        mobile: json["mobile"],
-        address: json["address"],
-        place: json["place"],
-        payment: json["payment"],
-        rate: json["rate"],
-        available: json["available"],
-        slug: json["slug"],
-        ordernumber: json["ordernumber"],
-        booked: json["booked"],
-        createdAt: json["created_at"],
+        bookedPerson: json["booked_person"] == null
+            ? null
+            : BookedPerson.fromJson(json["booked_person"]),
+        title: json["title"] ?? null,
+        discriptions: json["discriptions"] ?? null,
+        subMobile: json["sub_mobile"] ?? null,
+        mobile: json["mobile"] ?? null,
+        address: json["address"] ?? null,
+        place: json["place"] ?? null,
+        payment: json["payment"] ?? null,
+        rate: json["rate"] ?? null,
+        available: json["available"] ?? null,
+        slug: json["slug"] ?? null,
+        ordernumber: json["ordernumber"] ?? null,
+        booked: json["booked"] ?? null,
+        createdAt: json["created_at"] ?? null,
         validAt:
             json["valid_at"] == null ? null : DateTime.parse(json["valid_at"]),
-        user: json["user"],
-        bookedPerson: json["booked_person"],
+        verified: json["verified"] ?? null,
+      );
+}
+
+class BookedPerson {
+  BookedPerson({
+    this.firstName,
+    this.lastName,
+    this.mobile,
+    this.email,
+    this.password,
+    this.isActive,
+    this.isAdmin,
+    this.isStaff,
+    this.count,
+    this.id,
+  });
+
+  String? firstName;
+  String? lastName;
+  String? mobile;
+  String? email;
+  String? password;
+  bool? isActive;
+  bool? isAdmin;
+  bool? isStaff;
+  int? count;
+  int? id;
+
+  factory BookedPerson.fromJson(Map<String, dynamic> json) => BookedPerson(
+        firstName: json["first_name"] ?? null,
+        lastName: json["last_name"] ?? null,
+        mobile: json["mobile"] ?? null,
+        email: json["email"] ?? null,
+        password: json["password"] ?? null,
+        isActive: json["is_active"] ?? null,
+        isAdmin: json["is_admin"] ?? null,
+        isStaff: json["is_staff"] ?? null,
+        count: json["count"] ?? null,
+        id: json["id"] ?? null,
       );
 }
 
@@ -105,18 +149,11 @@ class Category {
   dynamic? image;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
-        id: json["id"],
-        name: json["name"],
-        categoryOf: json["category_of"],
+        id: json["id"] ?? null,
+        name: json["name"] ?? null,
+        categoryOf: json["category_of"] ?? null,
         image: json["image"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "category_of": categoryOf,
-        "image": image,
-      };
 }
 
 class City {
@@ -131,16 +168,10 @@ class City {
   int? district;
 
   factory City.fromJson(Map<String, dynamic> json) => City(
-        id: json["id"],
-        city: json["city"],
-        district: json["district"],
+        id: json["id"] ?? null,
+        city: json["city"] ?? null,
+        district: json["district"] ?? null,
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "city": city,
-        "district": district,
-      };
 }
 
 class District {
@@ -153,12 +184,7 @@ class District {
   String? district;
 
   factory District.fromJson(Map<String, dynamic> json) => District(
-        id: json["id"],
-        district: json["district"],
+        id: json["id"] ?? null,
+        district: json["district"] ?? null,
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "district": district,
-      };
 }

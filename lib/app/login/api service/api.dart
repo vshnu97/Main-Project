@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -19,6 +20,7 @@ class API {
       if (re) {
         Response response = await dio.post(Url.login, data: dataQ.toJson());
         if (response.statusCode! >= 200 && response.statusCode! <= 299) {
+          log(response.data.toString());
           return ResponseLoginModel.fromJson(response.data);
         }
       }

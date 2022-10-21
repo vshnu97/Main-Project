@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:main_project/app/need_job/view_model/jobpost_post_provider.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
@@ -31,7 +33,7 @@ class JobPostDropdownDistrictCity extends StatelessWidget {
                       fweight: FontWeight.w500,
                       fcolor: kGreenColor.withOpacity(.5)),
                   hint: const Text(
-                    'Select Category',
+                    'Select District',
                     style: TextStyle(
                         overflow: TextOverflow.ellipsis,
                         color: kGreyColor,
@@ -49,6 +51,7 @@ class JobPostDropdownDistrictCity extends StatelessWidget {
                   }).toList(),
                   onChanged: (String? value) {
                     provider.districtId = int.tryParse(value!);
+                    provider.getCity(value);
                   },
                 ),
               ),
@@ -71,7 +74,7 @@ class JobPostDropdownDistrictCity extends StatelessWidget {
                       fweight: FontWeight.w500,
                       fcolor: kGreenColor.withOpacity(.5)),
                   hint: const Text(
-                    'Select Category',
+                    'Select a city',
                     style: TextStyle(
                         overflow: TextOverflow.ellipsis,
                         color: kGreyColor,
@@ -84,10 +87,14 @@ class JobPostDropdownDistrictCity extends StatelessWidget {
                   items: provider.citytList.map((districtsname) {
                     return DropdownMenuItem<String>(
                       value: districtsname.id.toString(),
-                      child: Text(districtsname.city .toString()),
+                      child: Text(districtsname.city.toString()),
                     );
                   }).toList(),
-                  onChanged: (String? value) {},
+                  onChanged: (String? value) {
+                    provider.cityID = int.tryParse(value!);
+
+                    log(provider.cityID.toString());
+                  },
                 ),
               ),
             ],

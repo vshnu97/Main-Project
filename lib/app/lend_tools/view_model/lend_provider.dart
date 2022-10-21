@@ -4,11 +4,28 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:main_project/app/interceptor/interceptor_helper.dart';
+import 'package:main_project/app/lend_tools/api_service/api.dart';
+import 'package:main_project/app/lend_tools/model/lend_post_paid_respose.dart';
+import 'package:main_project/app/lend_tools/model/lend_post_response.dart';
+import 'package:main_project/app/lend_tools/model/rent_category.dart';
+import 'package:main_project/app/lend_tools/payment/view/lendtool_payment_success.dart';
+import 'package:main_project/app/lend_tools/payment/view_model/lend_post_payment.dart';
+import 'package:main_project/app/login/view/widgets/snackbar.dart';
+import 'package:main_project/app/routes/routes.dart';
+import 'package:main_project/app/user_profile/view_model/userprofile_provider.dart';
+import 'package:main_project/app/utities/colors/colors.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
+import '../../rent_tools/payment/view/screen_payment_success.dart';
 
 class LendProvider extends ChangeNotifier {
+  LendProvider() {
+    getRentCategory();
+  }
+
 //*********************************** Screen Lend *****************************************//
-  final formKey = GlobalKey<FormState>();
+  static final formKey = GlobalKey<FormState>();
 
   final titleTextController = TextEditingController();
   final descrpTextController = TextEditingController();
@@ -26,6 +43,8 @@ class LendProvider extends ChangeNotifier {
   String? img1File;
   String? img2File;
   String? img3File;
+  static String? orderNumber;
+  bool isLoading = false;
 
   String? checkValidate(String? val) {
     if (val == null) return null;
@@ -69,12 +88,23 @@ class LendProvider extends ChangeNotifier {
   }
 
 //******************************** API integation ****************************//
-  postLendTools() async {
+  postLendTools(BuildContext context) async {
+    if (categoryValue == null) {
+      pop('Select a category');
+      return;
+    } else if (dateNew == null) {
+      pop('Pick a date ');
+      return;
+    } else if (serverImg1 == null || serverImg2 == null || serverImg3 == null) {
+      pop('Select tool image');
+      return;
+    }
+    isLoading = true;
+    notifyListeners();
     var image1 = serverImg1!;
-    var image2 = serverImg1!;
-    var image3 = serverImg1!;
-    log(date.toString());
-    log(categoryValue.toString());
+    var image2 = serverImg2!;
+    var image3 = serverImg3!;
+
     FormData formData = FormData.fromMap({
       'district': 1,
       'city': 1,
@@ -90,175 +120,116 @@ class LendProvider extends ChangeNotifier {
       'image': await MultipartFile.fromFile(image1, filename: img1File),
       'image1': await MultipartFile.fromFile(image2, filename: img2File),
       'image2': await MultipartFile.fromFile(image3, filename: img3File),
-      'date': date
+      'date': dateNew.toString(),
     });
+    LendToolPostResponseModel? response =
+        await RentToolsApiService().getApi(formData);
+    if (response != null) {
+      isLoading = false;
+      notifyListeners();
+      if (response.ordernumber != null) {
+        orderNumber = response.ordernumber;
+        log('+++++++++order number printed ++++++++++++++++++');
+        log(orderNumber.toString());
+        context.read<UserProfileProvider>().getUserData();
+        context
+            .read<PostLendToolsRazorpayProvider>()
+            .lendToolsPostPayment(titleTextController.text);
+        disposeTextField();
+      } else {
+        pop(response.message.toString());
+      }
+    } else {
+      pop('No network');
+    }
+  }
 
-    Dio dio = await InterceptorHelper().getApiClient();
-    Response response =
-        await dio.post('http://10.0.2.2:8000/rent/post/', data: formData);
-    log(response.toString());
+  @override
+  void dispose() {
+    super.dispose();
+    titleTextController.dispose();
+    descrpTextController.dispose();
+    phoneNumController.dispose();
+    placeTextController.dispose();
+    rateTextController.dispose();
+    addressTextController.dispose();
+  }
+
+  disposeTextField() {
+    titleTextController.clear();
+    descrpTextController.clear();
+    phoneNumController.clear();
+    placeTextController.clear();
+    rateTextController.clear();
+    addressTextController.clear();
+    image1 = '';
+    image2 = '';
+    image3 = '';
+    dateNew='';
+
   }
 
 //*********************************** Date pick *****************************************//
   dynamic dateNow = DateTime.now();
   late String format;
-  String? date;
+  String? dateNew;
 
   datePicker(BuildContext context) async {
-    DateTime? newDate = await showDatePicker(
-        context: context,
-        initialDate: dateNow,
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2028));
-
-    var dateTime = DateTime.parse(dateNow.toString());
-    var dateTemp = "${dateTime.year}-${dateTime.month}-${dateTime.day}";
-    date = dateTemp;
-    newDate == null ? dateNow : dateNow = newDate;
+    DateTime date = (await showDatePicker(
+      context: context,
+      initialDate: dateNow,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2080),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: kGreenColor,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    ))!;
+    dateNew = DateFormat('yyyy-MM-dd').format(date);
+    log(dateNew.toString());
     notifyListeners();
   }
 
 //********************************* Category dropdown ***********************************//
-  List<String> categories = [
-    "Electrical Tools",
-    "Mechanical Tools",
-    "Agriculture Tools",
-    'Automotive Tools',
-    'Decoration Work',
-    'Electronics Tools',
-    'Construction Tools',
-  ];
-  String? dropdownvalue;
-  int index = 0;
+  List categoryList = [];
   int? categoryValue;
-  changeDropName(dynamic value) {
-    dropdownvalue = value;
-    categoryValue = (categories.indexOf(value) + 1);
-    print(categoryValue);
-    notifyListeners();
-  }
 
-//******************************** District dropdown ********************************//
-  String? districtDropdown;
-  bool disableDropdown = true;
-  changeDistrict(value) {
-    if (value == 'Kozhikode') {
-      filterkozhikode();
-    }
-    districtDropdown = value;
-    disableDropdown = false;
-    notifyListeners();
-  }
-
-  secondChanged(value) {
-    districtDropdown = value;
-    notifyListeners();
-  }
-
-  filterkozhikode() {
-    for (String key in kozhikode.keys) {
-      menuItems.add(DropdownMenuItem<String>(
-        // ignore: sort_child_properties_last
-        child: Center(
-          child: Text(kozhikode[key].toString()),
-        ),
-        value: kozhikode[key],
-      ));
+  getRentCategory() async {
+    RentCategoryResponseModel? response =
+        await RentToolsApiService().getLendCategoryApi();
+    if (response != null) {
+      categoryList.clear();
+      for (var element in response.listOfRentCategory!) {
+        categoryList.add(element);
+      }
+      notifyListeners();
+    } else {
+      pop('Something went Wrong');
     }
   }
 
-  List<String> districts = [
-    "Kozhikode",
-    "Wayanad",
-    "Kannur",
-    'Kasargod',
-    'Malapuram',
-    'Palakad',
-    'Thrissur',
-    'Ernakulam',
-    'Alappuzha',
-    'Idukki',
-    'Kollam',
-    'Kottayam',
-    "Pathanamthitta",
-    'Trivandrum'
-  ];
-  //******************************** City dropdown ********************************//
+//******************************** API integation ****************************//
 
-  List<DropdownMenuItem<String>> menuItems = [];
+  getLendToolPostData() async {
+    LendToolPaidResponseModel? response =
+        await RentToolsApiService().getApiLendPaid(orderNumber);
 
-  final kozhikode = {
-    '1': 'Palayam',
-    '2': 'Kopp',
-    '3': 'Beypore',
-    '4': 'Koduvally',
-    '5': 'Ballusery',
-  };
-  final wayanad = {
-    '1': 'Mananthavady',
-    '2': 'Kalpetta',
-    '3': 'Bathery',
-    '4': 'Vythiri',
-  };
-  final kannur = {
-    '1': 'Kannur N',
-    '2': 'Kannur S',
-    '3': 'Payyanur',
-    '4': 'Thallaserry',
-  };
-  final kasargod = {
-    '1': 'Manjeshwar',
-    '2': 'Udma',
-    '3': 'Kanhangad',
-  };
-  final malapuram = {
-    '1': 'Vengara',
-    '2': 'Vallikunu',
-    '3': 'Kondotty',
-  };
-  final palakad = {
-    '1': 'Palakad N',
-    '2': 'Palakad S',
-    '3': 'Kannadi',
-  };
-  final thrissur = {
-    '1': 'Thrissur N',
-    '2': 'Thrissur S',
-    '3': 'Guruvayur',
-  };
-  final ernakulam = {
-    '1': 'Aluva',
-    '2': 'Kochi',
-    '3': 'Edapalli',
-  };
-  final kollam = {
-    '1': 'Kollam N',
-    '2': 'Kollam S',
-    '3': 'Kottamkara',
-  };
-  final kottayam = {
-    '1': 'Kanjirappally',
-    '2': 'Meenachil ',
-    '3': 'Vaikom ',
-  };
-  final idukki = {
-    '1': 'Thodupuzha',
-    '2': 'Devikulam ',
-    '3': 'Cheruthoni ',
-  };
-  final alapuzha = {
-    '1': 'Cherthala',
-    '2': 'Kuttnad ',
-    '3': 'Ambalapuzha ',
-  };
-  final pathanamthitta = {
-    '1': 'Adoor',
-    '2': 'Thiruvala ',
-    '3': 'Ranni ',
-  };
-  final tvm = {
-    '1': 'Katakada',
-    '2': 'Varkala ',
-    '3': 'Neyantinkara ',
-  };
+    if (response != null) {
+      if (response.payment!) {
+        Routes.pushremoveUntil(
+            screen: const ScreenPaymentSuccess(
+                image: 'assests/paymentsucess.png',
+                title: "Payment successful",
+                child: ScreenLendToolPaidSuccess()));
+      } else {
+        pop('Something went Wrong');
+      }
+    }
+  }
 }

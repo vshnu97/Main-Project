@@ -52,7 +52,7 @@ class DatepickWidget extends StatelessWidget {
                   ),
                   Consumer<NeedJobPostProvider>(
                     builder: (context, obj, _) => Text(
-                        DateFormat('yMd').format(obj.dateNow),
+                        obj.dateNew ?? DateFormat('yyyy-MM-dd').format(obj.dateNow),
                         style: viga(
                             fsize: 12,
                             fweight: FontWeight.w600,

@@ -1,218 +1,263 @@
 import 'package:flutter/material.dart';
 import 'package:main_project/app/home/view/screen_home.dart';
+import 'package:main_project/app/need_job/view_model/jobpost_post_provider.dart';
+import 'package:main_project/app/need_worker/model/on_payment_response.dart';
+import 'package:main_project/app/need_worker/view/widget/shimmer_widget.dart';
 import 'package:main_project/app/routes/routes.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
+import 'package:provider/provider.dart';
 
 class ScreenEmployePaymentProfile extends StatelessWidget {
-  const ScreenEmployePaymentProfile({Key? key}) : super(key: key);
+  List<PaymentDoneResponseModel> hiredWorkerList;
+  ScreenEmployePaymentProfile({Key? key, required this.hiredWorkerList})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(205),
-        child: Container(
-          height: 205,
-          decoration: const BoxDecoration(
-              color: kGreenColor,
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(25),
-                  bottomRight: Radius.circular(25))),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Spacer(),
-                    InkWell(
-                        onTap: () {
-                          Routes.push(screen: const ScreenHome());
-                        },
-                        child: const Icon(Icons.home, color: kWhiteColor))
-                  ],
-                ),
-                kheight15,
-                Padding(
+    final number = hiredWorkerList.first.validAt.toString().substring(0, 10);
+    Size size = MediaQuery.of(context).size;
+
+    return hiredWorkerList.isEmpty
+        ? Scaffold(body: buildMovieShimmer(context))
+        : SafeArea(
+            child: Scaffold(
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(205),
+              child: Container(
+                height: 205,
+                decoration: const BoxDecoration(
+                    color: kGreenColor,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(25),
+                        bottomRight: Radius.circular(25))),
+                child: Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Row(
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  child: Column(
                     children: [
-                      Container(
-                        height: 130,
-                        width: 120,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: kWhiteColor),
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              const Icon(
-                                Icons.star,
-                                color: kyellowColor,
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'Rating',
-                                style: poppins(
-                                    fsize: 14,
-                                    fweight: FontWeight.w600,
-                                    fcolor: kWhiteColor),
-                              ),
-                            ],
-                          ),
-                          kheight5,
-                          Text(
-                            'Name',
-                            style: dmSans(fcolor: kWhiteColor, fsize: 21),
-                          ),
-                          kheight5,
-                          Text(
-                            'Profession',
-                            style: redRose(
-                              fsize: 16,
-                              fcolor: const Color(0xffA3C4CC),
-                              fweight: FontWeight.normal,
-                            ),
-                          ),
-                          kheight5,
-                          Text('Price',
-                              style: dmSans(
-                                  fcolor: kWhiteColor,
-                                  fsize: 22,
-                                  fweight: FontWeight.w700)),
+                          const Spacer(),
+                          InkWell(
+                              onTap: () {
+                                Routes.pushremoveUntil(
+                                    screen: const ScreenHome());
+                              },
+                              child: const Icon(Icons.home, color: kWhiteColor))
                         ],
                       ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Services',
-                  style: roboto(),
-                ),
-                kheight20,
-                LimitedBox(
-                  maxHeight: 135,
-                  child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: 5,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: ((context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-                          child: Container(
-                            height: 135,
-                            width: 120,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: const Color(0xffE8F4F2)),
-                          ),
-                        );
-                      })),
-                )
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Location',
-                  style: roboto(),
-                ),
-                kheight20,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Location details',
-                        style: dmMono(fsize: 19),
-                      ),
-                      Icon(
-                        Icons.location_on_outlined,
-                        color: kGreyColor.withOpacity(.4),
-                        size: 35,
+                      kheight15,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
+                        child: Row(
+                          children: [
+                            Container(
+                              height: size.height * .16,
+                              width: size.width * .3,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(context
+                                          .read<NeedJobPostProvider>()
+                                          .categoryImage(hiredWorkerList
+                                              .first.category!.name))),
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: kWhiteColor),
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  hiredWorkerList.first.title
+                                      .toString()
+                                      .toString(),
+                                  style: dmSans(fcolor: kWhiteColor, fsize: 21),
+                                ),
+                                kheight,
+                                Text(
+                                  hiredWorkerList.first.category!.name
+                                      .toString(),
+                                  style: redRose(
+                                    fsize: 20,
+                                    fcolor: const Color(0xffA3C4CC),
+                                    fweight: FontWeight.normal,
+                                  ),
+                                ),
+                                kheight,
+                                Text(
+                                    "₹ ${hiredWorkerList.first.rate.toString()}.00",
+                                    style: dmSans(
+                                        fcolor: kWhiteColor,
+                                        fsize: 22,
+                                        fweight: FontWeight.w700)),
+                              ],
+                            ),
+                          ],
+                        ),
                       )
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Container(
-                    height: 1,
-                    width: double.infinity,
-                    color: kBlackColor.withOpacity(.3),
+              ),
+            ),
+            body: Container(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      kheight20,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Contact details',
+                            style: roboto(),
+                          ),
+                          kheight5,
+                          Text("+91-${hiredWorkerList.first.mobile.toString()}",
+                              style: dmSans(
+                                  fsize: 18,
+                                  fcolor: Colors.red,
+                                  fweight: FontWeight.bold)),
+                          Text(
+                              "+91-${hiredWorkerList.first.subMobile.toString()}",
+                              style: dmSans(
+                                  fsize: 18,
+                                  fcolor: Colors.red,
+                                  fweight: FontWeight.bold))
+                        ],
+                      ),
+                      kheight20,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Location',
+                            style: roboto(),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "${hiredWorkerList.first.city!.city.toString()} | ${hiredWorkerList.first.district!.district.toString()}",
+                                style: dmMono(fsize: 19),
+                              ),
+                              Icon(
+                                Icons.location_on_outlined,
+                                color: kGreyColor.withOpacity(.4),
+                                size: 35,
+                              )
+                            ],
+                          ),
+                          Text(
+                            "${hiredWorkerList.first.address.toString()} ",
+                            textAlign: TextAlign.center,
+                            style: dmMono(fsize: 19),
+                          ),
+                        ],
+                      ),
+                      kheight20,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          DateTimeWidget(
+                              icon: Icons.calendar_month,
+                              title: 'Available till',
+                              content: number),
+                        ],
+                      ),
+                      kheight20,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Booked by',
+                            style: roboto(),
+                          ),
+                          kheight5,
+                          Text(
+                              hiredWorkerList.first.bookedPerson!.firstName
+                                  .toString(),
+                              style: dmSans(
+                                  fsize: 18,
+                                  fcolor: kGreenColor,
+                                  fweight: FontWeight.bold)),
+                          Text(
+                              hiredWorkerList.first.bookedPerson!.email
+                                  .toString(),
+                              style: dmSans(
+                                  fsize: 16,
+                                  fcolor: kGreenColor,
+                                  fweight: FontWeight.bold))
+                        ],
+                      ),
+                    ],
                   ),
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                DateTimeWidget(
-                    icon: Icons.calendar_month,
-                    title: 'Date',
-                    content: '0/00/0000'),
-                DateTimeWidget(
-                    icon: Icons.timer, title: 'Time', content: '0:00')
-              ],
-            ),
-            Column(
-              children: [
-                Text(
-                  'Contact Number',
-                  style: dmSans(
-                      fsize: 20, fcolor: kGreenColor, fweight: FontWeight.bold),
                 ),
-                kheight5,
-                Text('+91 XXXXXXXXX',
-                    style: dmSans(
-                        fsize: 18,
-                        fcolor: Colors.red,
-                        fweight: FontWeight.bold))
-              ],
-            )
-          ],
-        ),
-      ),
-      bottomNavigationBar: Container(
-        height: 60,
-        color: kGreenColor,
-        child: Center(
-          child:
-              Text('Booked', style: dmSans(fcolor: kWhiteColor, flettrspc: 2)),
-        ),
-      ),
-    ));
+              ),
+            ),
+            bottomNavigationBar: Container(
+              height: size.height * .07,
+              color: kGreenColor,
+              child: InkWell(
+                onTap: () {
+                  Routes.pushremoveUntil(screen: const ScreenHome());
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Booked',
+                        style: dmSans(fcolor: kWhiteColor, flettrspc: 2)),
+                    Image.asset(
+                      'assests/arrwG.png',
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ));
+  }
+
+  Widget buildMovieShimmer(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CustomWidget.rectangular(
+            height: size.height * .35, width: double.infinity),
+        kheight30,
+        Expanded(
+          child: LimitedBox(
+            child: ListView.separated(
+                itemBuilder: ((context, index) {
+                  return ListTile(
+                    title: Align(
+                      alignment: Alignment.centerLeft,
+                      child: CustomWidget.rectangular(
+                        height: 16,
+                        width: MediaQuery.of(context).size.width * 0.3,
+                      ),
+                    ),
+                    subtitle: const CustomWidget.rectangular(height: 14),
+                  );
+                }),
+                separatorBuilder: ((context, index) {
+                  return kheight5;
+                }),
+                itemCount: 6),
+          ),
+        )
+      ],
+    );
   }
 }
 
@@ -236,7 +281,7 @@ class DateTimeWidget extends StatelessWidget {
           title,
           style: roboto(),
         ),
-        kheight15,
+        kheight,
         Container(
           height: 40,
           width: 160,

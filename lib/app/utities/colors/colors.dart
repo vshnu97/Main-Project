@@ -5,6 +5,7 @@ const kBlackColor = Colors.black;
 const kBlueColor = Color(0xff3982f0);
 const kGreenColor = Color(0xff143740);
 const kGreyColor = Colors.grey;
+const kappleGreen =Color(0xffe9f5f2);
 const kYellowHomeColor = Color(0xfff3d59f);
 const kBlueHomeColor = Color(0xff74bfe5);
 const kPinkHomeColor = Color(0xffd9b6d5);

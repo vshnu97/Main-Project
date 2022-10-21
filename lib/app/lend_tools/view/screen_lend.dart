@@ -39,11 +39,11 @@ class ScreenLendTools extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Form(
-          key: provider.formKey,
+          key: LendProvider.formKey,
           child: ListView(
             physics: const BouncingScrollPhysics(),
             children: [
-              const ImageWid(),
+              const ImageWidget(),
               kheight20,
               const DropdownDistrictCity(),
               kheight,
@@ -124,8 +124,8 @@ class ScreenLendTools extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      if (provider.formKey.currentState!.validate()) {
-                        context.read<LendProvider>().postLendTools();
+                      if (LendProvider.formKey.currentState!.validate()) {
+                        context.read<LendProvider>().postLendTools(context);
                       }
                     },
                     child: Container(

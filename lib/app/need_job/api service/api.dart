@@ -1,8 +1,8 @@
 import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:main_project/app/domain/api_end_points.dart';
+import 'package:main_project/app/interceptor/error.dart';
 import 'package:main_project/app/interceptor/interceptor_helper.dart';
 import 'package:main_project/app/login/view/widgets/snackbar.dart';
 import 'package:main_project/app/need_job/model/job_category_model.dart';
@@ -23,23 +23,14 @@ class NeedJobAPI {
       if (network) {
         Response response =
             await dio.post("${Url.baseUrl}${Url.jobPost}", data: data.toJson());
-
-        return JobPostResponseModel.fromJson(response.data);
-      } else {
-        return JobPostResponseModel(message: 'Unknown error');
-      }
-    } on DioError catch (e) {
-      if (e.response!.data == null) {
-        return JobPostResponseModel(message: 'Something went wrong!');
-      } else if (e.type == DioErrorType.connectTimeout) {
-        return JobPostResponseModel(message: 'Check your connection');
-      } else if (e.type == DioErrorType.receiveTimeout) {
-        return JobPostResponseModel(message: 'Unable to connect to the server');
-      } else if (e.type == DioErrorType.other) {
-        return JobPostResponseModel(message: 'Something went wrong');
+        if (response.statusCode! >= 200 && response.statusCode! <= 299) {
+          return JobPostResponseModel.fromJson(response.data);
+        } else {
+          return JobPostResponseModel(message: 'Unknown error');
+        }
       }
     } catch (e) {
-      return JobPostResponseModel(message: 'Server Down');
+      return pop(handleError(e));
     }
     return null;
   }
@@ -55,24 +46,14 @@ class NeedJobAPI {
             data: {'order_number': ordernumber});
         log('Printing');
         log(response.toString());
-
-        return JobPostPaidResponseModel.fromJson(response.data);
-      } else {
-        return JobPostPaidResponseModel(message: 'Unknown error');
-      }
-    } on DioError catch (e) {
-      if (e.response!.data == null) {
-        return JobPostPaidResponseModel(message: 'Something went wrong!');
-      } else if (e.type == DioErrorType.connectTimeout) {
-        return JobPostPaidResponseModel(message: 'Check your connection');
-      } else if (e.type == DioErrorType.receiveTimeout) {
-        return JobPostPaidResponseModel(
-            message: 'Unable to connect to the server');
-      } else if (e.type == DioErrorType.other) {
-        return JobPostPaidResponseModel(message: 'Something went wrong');
+        if (response.statusCode! >= 200 && response.statusCode! <= 299) {
+          return JobPostPaidResponseModel.fromJson(response.data);
+        } else {
+          return JobPostPaidResponseModel(message: 'Unknown error');
+        }
       }
     } catch (e) {
-      return JobPostPaidResponseModel(message: 'Server Down');
+      return pop(handleError(e));
     }
     return null;
   }
@@ -85,23 +66,14 @@ class NeedJobAPI {
       final network = await checking();
       if (network) {
         Response response = await dio.get("${Url.baseUrl}${Url.jobCategory}");
-
-        return JobCategoryResponse.fromJson(response.data);
-      } else {
-        return JobCategoryResponse(message: 'Unknown error');
-      }
-    } on DioError catch (e) {
-      if (e.response!.data == null) {
-        return JobCategoryResponse(message: 'Something went wrong!');
-      } else if (e.type == DioErrorType.connectTimeout) {
-        return JobCategoryResponse(message: 'Check your connection');
-      } else if (e.type == DioErrorType.receiveTimeout) {
-        return JobCategoryResponse(message: 'Unable to connect to the server');
-      } else if (e.type == DioErrorType.other) {
-        return JobCategoryResponse(message: 'Something went wrong');
+        if (response.statusCode! >= 200 && response.statusCode! <= 299) {
+          return JobCategoryResponse.fromJson(response.data);
+        } else {
+          return JobCategoryResponse(message: 'Unknown error');
+        }
       }
     } catch (e) {
-      return JobCategoryResponse(message: 'Server Down');
+      return pop(handleError(e));
     }
     return null;
   }
@@ -114,65 +86,47 @@ class NeedJobAPI {
       final network = await checking();
       if (network) {
         Response response = await dio.get("${Url.baseUrl}${Url.jobDistrict}");
-
-        return JobDistrictResponseModel.fromJson(response.data);
-      } else {
-        return JobDistrictResponseModel(message: 'Unknown error');
-      }
-    } on DioError catch (e) {
-      if (e.response!.data == null) {
-        return JobDistrictResponseModel(message: 'Something went wrong!');
-      } else if (e.type == DioErrorType.connectTimeout) {
-        return JobDistrictResponseModel(message: 'Check your connection');
-      } else if (e.type == DioErrorType.receiveTimeout) {
-        return JobDistrictResponseModel(
-            message: 'Unable to connect to the server');
-      } else if (e.type == DioErrorType.other) {
-        return JobDistrictResponseModel(message: 'Something went wrong');
+        if (response.statusCode! >= 200 && response.statusCode! <= 299) {
+          return JobDistrictResponseModel.fromJson(response.data);
+        } else {
+          return JobDistrictResponseModel(message: 'Unknown error');
+        }
       }
     } catch (e) {
-      return JobDistrictResponseModel(message: 'Server Down');
+      return pop(handleError(e));
     }
     return null;
   }
 
   //*********************************** Api service District dropdown *****************************************//
 
-  Future<JobCityResponseModel?> getCityApi() async {
+  Future<JobCityResponseModel?> getCityApi(String? value) async {
     Dio dio = await InterceptorHelper().getApiClient();
     try {
       final network = await checking();
       if (network) {
-        Response response = await dio.get("${Url.baseUrl}${Url.jobCity}");
-
-        return JobCityResponseModel.fromJson(response.data);
-      } else {
-        return JobCityResponseModel(message: 'Unknown error');
-      }
-    } on DioError catch (e) {
-      if (e.response!.data == null) {
-        return JobCityResponseModel(message: 'Something went wrong!');
-      } else if (e.type == DioErrorType.connectTimeout) {
-        return JobCityResponseModel(message: 'Check your connection');
-      } else if (e.type == DioErrorType.receiveTimeout) {
-        return JobCityResponseModel(message: 'Unable to connect to the server');
-      } else if (e.type == DioErrorType.other) {
-        return JobCityResponseModel(message: 'Something went wrong');
+        Response response =
+            await dio.get('http://10.0.2.2:8000/job/showcity/$value/');
+        if (response.statusCode! >= 200 && response.statusCode! <= 299) {
+          return JobCityResponseModel.fromJson(response.data);
+        } else {
+          return JobCityResponseModel(message: 'Unknown error');
+        }
       }
     } catch (e) {
-      return JobCityResponseModel(message: 'Server Down');
+      return pop(handleError(e));
     }
     return null;
   }
-}
 //*********************************** Internet checking fuction *****************************************//
 
-checking() async {
-  bool result = await InternetConnectionChecker().hasConnection;
-  if (result == true) {
-    print('Got internet');
-  } else {
-    pop('No network connection');
+  checking() async {
+    bool result = await InternetConnectionChecker().hasConnection;
+    if (result == true) {
+      print('Got internet');
+    } else {
+      pop('No network connection');
+    }
+    return result;
   }
-  return result;
 }

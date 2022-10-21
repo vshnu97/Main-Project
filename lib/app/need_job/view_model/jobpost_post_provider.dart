@@ -1,3 +1,5 @@
+import 'dart:developer';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:main_project/app/login/view/widgets/snackbar.dart';
 import 'package:main_project/app/need_job/api%20service/api.dart';
@@ -11,6 +13,7 @@ import 'package:main_project/app/need_job/payment/view_model/post_payment.dart';
 import 'package:main_project/app/rent_tools/payment/view/screen_payment_success.dart';
 import 'package:main_project/app/routes/routes.dart';
 import 'package:main_project/app/user_profile/view_model/userprofile_provider.dart';
+import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:provider/provider.dart';
 import '../payment/view/screen_postjob_success.dart';
 
@@ -18,12 +21,11 @@ class NeedJobPostProvider extends ChangeNotifier {
   NeedJobPostProvider() {
     getCategory();
     getDistrict();
-    getCity();
   }
 
   //*********************************** Screen view *****************************************//
 
-  final formKeys = GlobalKey<FormState>();
+  static final validateKey = GlobalKey<FormState>();
 
   String? checkValidate(String? val) {
     if (val == null) return null;
@@ -51,19 +53,22 @@ class NeedJobPostProvider extends ChangeNotifier {
     if (categoryValue == null) {
       pop('Select a category');
       return;
-    } else if (date == null) {
+    } else if (dateNew == null) {
       pop('Pick a date ');
       return;
     } else if (districtId == null) {
       pop('Select a District');
       return;
+    } else if (cityID == null) {
+      pop('Select a City');
+      return;
     }
     final data = JobPostModel(
         district: districtId!,
-        city: 1,
+        city: cityID!,
         address: addressTextController.text,
         category: categoryValue!,
-        date: date.toString(),
+        date: dateNew.toString(),
         description: descrpTextController.text,
         mobile: phoneNumController.text,
         place: placeTextController.text,
@@ -80,6 +85,7 @@ class NeedJobPostProvider extends ChangeNotifier {
             .read<PostJobRazorpayProvider>()
             .jobpostPayment(titleTextController.text);
         disposeTextField();
+        dateNow.clear();
       } else {
         pop(response.message.toString());
       }
@@ -96,31 +102,44 @@ class NeedJobPostProvider extends ChangeNotifier {
 
     if (response != null) {
       if (response.payment!) {
-        Routes.push(
+        Routes.pushremoveUntil(
             screen: ScreenPaymentSuccess(
                 image: 'assests/paymentsucess.png',
                 title: "Payment successful",
-                child: ScreenJobPostSuccess(response: response)));
+                child: ScreenJobPostSuccess(
+                  response: response,
+                )));
       }
+    } else {
+      pop('Something went Wrong');
     }
   }
 
 //*********************************** Date pick *****************************************//
   dynamic dateNow = DateTime.now();
   late String format;
-  String? date;
+  String? dateNew;
 
   datePicker(BuildContext context) async {
-    DateTime? newDate = await showDatePicker(
-        context: context,
-        initialDate: dateNow,
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2028));
+    DateTime date = (await showDatePicker(
+      context: context,
+      initialDate: dateNow,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2080),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: kGreenColor,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    ))!;
+    dateNew = DateFormat('yyyy-MM-dd').format(date);
+    log(dateNew.toString());
 
-    var dateTime = DateTime.parse(dateNow.toString());
-    var dateTemp = "${dateTime.year}-${dateTime.month}-${dateTime.day}";
-    date = dateTemp;
-    newDate == null ? dateNow : dateNow = newDate;
     notifyListeners();
   }
 
@@ -146,15 +165,20 @@ class NeedJobPostProvider extends ChangeNotifier {
 
   List districtList = [];
   int? districtId;
+  String? dropdownvalue;
+  changeDropName(dynamic dropdownvalue) {
+    this.dropdownvalue = dropdownvalue;
+    notifyListeners();
+  }
 
   getDistrict() async {
     JobDistrictResponseModel? response = await NeedJobAPI().getDistrictApi();
     if (response != null) {
       districtList.clear();
-
       for (var element in response.districtsList!) {
         districtList.add(element);
       }
+
       notifyListeners();
     } else {
       pop('Something went Wrong');
@@ -164,11 +188,12 @@ class NeedJobPostProvider extends ChangeNotifier {
   //********************************* Api response(City dropdown) ***********************************//
 
   List<Cities> citytList = [];
+  int? cityID;
 
-  getCity() async {
-    JobCityResponseModel? response = await NeedJobAPI().getCityApi();
-
+  getCity(String? value) async {
+    JobCityResponseModel? response = await NeedJobAPI().getCityApi(value);
     if (response != null) {
+      log(response.citiesList!.first.city.toString());
       citytList.clear();
       for (var element in response.citiesList!) {
         citytList.add(element);
@@ -178,21 +203,6 @@ class NeedJobPostProvider extends ChangeNotifier {
       pop('Something went Wrong');
     }
   }
-  // List cityTemp = [];
-  // changeCity(id) {
-  //   log(id.toString());
-  //   cityTemp.clear();
-  //   for (var element in citytList) {
-  //     log(element.district.toString());
-  //     log("=====================");
-  //   }
-  //   for (var value in citytList) {
-  //     if (id == value.id) {
-  //       cityTemp.add(value);
-  //     }
-  //   }
-  //   notifyListeners();
-  // }
 
   //********************************* Image category job  ***********************************//
 

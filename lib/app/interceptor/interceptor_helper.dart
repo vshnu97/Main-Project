@@ -21,10 +21,11 @@ class InterceptorHelper {
       onError: (e, handler) async {
         if (e.response?.statusCode == 403) {
           final refreshToken = await getRefreshToken();
-          log(refreshToken.toString());
+          final id = await getUserId();
+
           try {
             await dio.post('http://10.0.2.2:8000/user/refresh/',
-                data: {'refresh': refreshToken}).then((value) async {
+                data: {'refresh': refreshToken, 'id': id}).then((value) async {
               if (value.statusCode == 200) {
                 final object = NewToken.fromJSON(value.data);
                 //get new tokens ...
@@ -65,9 +66,13 @@ class InterceptorHelper {
 
   Future<void> addToSecureStorage(NewToken value) async {
     await storage.write(
-      key: "tokenNew",
+      key: "token",
       value: value.token,
     );
     log('added to secure storage');
+  }
+
+  Future<String> getUserId() async {
+    return await storage.read(key: "userID") ?? "";
   }
 }

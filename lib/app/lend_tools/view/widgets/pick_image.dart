@@ -7,8 +7,8 @@ import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
 import 'package:provider/provider.dart';
 
-class ImageWid extends StatelessWidget {
-  const ImageWid({
+class ImageWidget extends StatelessWidget {
+  const ImageWidget({
     Key? key,
   }) : super(key: key);
 

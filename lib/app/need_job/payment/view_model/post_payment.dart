@@ -1,9 +1,9 @@
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:main_project/app/need_job/view/screen_needjob.dart';
+import 'package:main_project/app/home/view/screen_home.dart';
 import 'package:main_project/app/need_job/view_model/jobpost_post_provider.dart';
+import 'package:main_project/app/need_worker/view/widget/loading.dart';
 import 'package:main_project/app/rent_tools/payment/view/screen_payment_success.dart';
 import 'package:main_project/app/routes/routes.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -19,17 +19,18 @@ class PostJobRazorpayProvider extends ChangeNotifier {
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    Routes.pushreplace(screen: const ScreenLoading());
     log('Payment success');
     NeedJobPostProvider().getJobPostData();
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
     print('Payment error');
-    Routes.push(
+    Routes.pushremoveUntil(
         screen: const ScreenPaymentSuccess(
             image: 'assests/warning.png',
             title: "Something went wrong",
-            child: ScreenNeedJob()));
+            child: ScreenHome()));
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
@@ -54,6 +55,9 @@ class PostJobRazorpayProvider extends ChangeNotifier {
       'description': text,
       'prefill': {'contact': phone, 'email': email},
       'timeout': 180,
+      'retry': {
+        'enabled': false,
+      },
       'modal': {
         'confirm_close': true,
         'external': {

@@ -1,12 +1,13 @@
 import 'package:animator/animator.dart';
 import 'package:flutter/material.dart';
 import 'package:main_project/app/routes/routes.dart';
+import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 
 class ScreenPaymentSuccess extends StatefulWidget {
-final  String image;
-final  String title;
-final  Widget child;
+  final String image;
+  final String title;
+  final Widget child;
 
   const ScreenPaymentSuccess(
       {Key? key, required this.child, required this.image, required this.title})
@@ -25,13 +26,14 @@ class _ScreenPaymentSuccessState extends State<ScreenPaymentSuccess> {
 
   Future gotoHome(Widget child) async {
     await Future.delayed(const Duration(seconds: 3));
-   Routes.pushreplace(screen: child);
+    Routes.pushreplace(screen: child);
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: kGreenColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -57,7 +59,7 @@ class _ScreenPaymentSuccessState extends State<ScreenPaymentSuccess> {
           ),
           Text(
             widget.title,
-            style: roboto(fsize: 20, flettrspc: 2),
+            style: roboto(fsize: 20, flettrspc: 2, fcolor: kWhiteColor),
             textAlign: TextAlign.center,
           )
         ],

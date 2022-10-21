@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:main_project/app/user_profile/view/widget/appbar_widget.dart';
 import 'package:main_project/app/user_profile/view/widget/color_container.dart';
+import 'package:main_project/app/user_profile/view_model/userprofile_provider.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
+import 'package:provider/provider.dart';
 
 class ScreenUserProfile extends StatelessWidget {
   const ScreenUserProfile({Key? key}) : super(key: key);
@@ -20,29 +22,28 @@ class ScreenUserProfile extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: ListView(
+            physics: const BouncingScrollPhysics(),
             children: [
-              kheight100,
+              kheight90,
               Row(
                 children: [
                   Image.asset('assests/offers.png'),
                   Text(
-                    ' free offers',
+                    ' Free offers',
                     style: dmSans(fsize: 18, fcolor: kGreenColor),
                   )
                 ],
               ),
               Text(
-                'Pay nothing for your first 3 work\nfrom professionals ',
-                style: dmSans(fsize: 15, fcolor: kBlueColor),
+                ' Pay nothing for your first booking\non any professional',
+                style: dmSans(fsize: 15, fcolor: kAvailableRed.withRed(200)),
                 textAlign: TextAlign.center,
               ),
-              kheight20,
+              kheight,
               Text(
                 'History',
                 style: dmSans(
-                    fcolor: kGreenColor.withOpacity(.5),
-                    fsize: 18,
-                    fweight: FontWeight.bold),
+                    fcolor: kGreenColor, fsize: 18, fweight: FontWeight.bold),
               ),
               kheight15,
               Row(
@@ -50,13 +51,21 @@ class ScreenUserProfile extends StatelessWidget {
                 children: [
                   ColorContainerWidget(
                       color: kGreenColor,
-                      funtion: () {},
+                      funtion: () {
+                        context
+                            .read<UserProfileProvider>()
+                            .getJobposHistorydata();
+                      },
                       boxtColor: kYellowHomeColor,
                       title: 'Jobs you added'),
-                  kwidth70,
+                  kwidth40,
                   ColorContainerWidget(
                       color: kGreenColor,
-                      funtion: () {},
+                      funtion: () {
+                        context
+                            .read<UserProfileProvider>()
+                            .getHiredHistorydata();
+                      },
                       boxtColor: kBlueHomeColor,
                       title: 'Employes you booked'),
                 ],
@@ -70,7 +79,7 @@ class ScreenUserProfile extends StatelessWidget {
                       funtion: () {},
                       boxtColor: kPinkHomeColor,
                       title: 'Tools you taken for rent'),
-                  kwidth70,
+                  kwidth40,
                   ColorContainerWidget(
                       color: kGreenColor,
                       funtion: () {},

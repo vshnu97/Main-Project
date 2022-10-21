@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:main_project/app/utities/colors/colors.dart';
 import 'package:main_project/app/utities/fonts/font.dart';
@@ -43,15 +44,15 @@ class LendDatePickWidget extends StatelessWidget {
                   color: kyellowColor,
                 ),
               ),
-              Consumer<LendProvider>(
-                builder: (context, obj, _) => Text(
-                    DateFormat('yMd').format(obj.dateNow),
+              Consumer<LendProvider>(builder: (context, obj, _) {
+                
+                return Text( obj.dateNew ?? DateFormat('yyyy-MM-dd').format(obj.dateNow),
                     style: viga(
                         fsize: 12,
                         fweight: FontWeight.w600,
                         flettrspc: 1.5,
-                        fcolor: kGreenColor.withOpacity(.5))),
-              ),
+                        fcolor: kGreenColor.withOpacity(.5)));
+              }),
             ],
           ),
         ],

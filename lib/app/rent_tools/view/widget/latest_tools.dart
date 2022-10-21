@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:main_project/app/rent_tools/view/screen_rent_view.dart';
 import 'package:main_project/app/rent_tools/view_model/rent_all_provider.dart';
@@ -8,6 +7,8 @@ import 'package:main_project/app/utities/fonts/font.dart';
 import 'package:main_project/app/utities/sizedbox/sizedbox.dart';
 import 'package:provider/provider.dart';
 
+import '../../../need_worker/view/widget/shimmer_widget.dart';
+
 class PopularToolsListWidget extends StatelessWidget {
   const PopularToolsListWidget({
     Key? key,
@@ -15,30 +16,31 @@ class PopularToolsListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final heightX = MediaQuery.of(context).size.height;
-    final widthX = MediaQuery.of(context).size.width;
+    Size size = MediaQuery.of(context).size;
+
     return Consumer<RentAllProvider>(builder: (context, value, child) {
-      return value.allRentItems.isNotEmpty
-          ? ListView.separated(
+      return value.allRentItems.isEmpty
+          ? SizedBox(height: size.height * .5, child: buildMovieShimmer())
+          : ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: value.allRentItems.length,
               itemBuilder: (context, index) {
                 final list = value.allRentItems[index];
-
                 return Container(
-                  height: heightX * .17,
+                  height: size.height * .17,
+                  width: size.width,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: kWhiteColor),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.all(10),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
-                          height: 100,
-                          width: 100,
+                          height: size.height * .13,
+                          width: size.width * .26,
                           decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: NetworkImage(list.image.toString()),
@@ -46,27 +48,40 @@ class PopularToolsListWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15),
                           ),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              list.title.toString().toUpperCase(),
-                              style: dmSans(
-                                  fcolor: kBlackColor,
-                                  fsize: 18,
-                                  fweight: FontWeight.w700),
-                            ),
-                            Text(
-                              list.district!.district.toString(),
-                              style: redRose(fcolor: const Color(0xff4f9788)),
-                            ),
-                            Text("₹ ${list.rate.toString()}.00",
+                        SizedBox(
+                          width: size.width * .04,
+                        ),
+                        SizedBox(
+                          width: size.width * .31,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                list.title.toString().toUpperCase(),
                                 style: dmSans(
-                                    fcolor: const Color(0xffecae77),
-                                    fsize: 17,
-                                    fweight: FontWeight.w900)),
-                          ],
+                                    fcolor: kBlackColor,
+                                    fsize: 18,
+                                    fweight: FontWeight.w700),
+                              ),
+                              Text(
+                                list.category!.name.toString(),
+                                style: dmSans(
+                                    fcolor: kGreyColor,
+                                    fsize: 16,
+                                    fweight: FontWeight.w700),
+                              ),
+                              Text(
+                                list.district!.district.toString(),
+                                style: redRose(fcolor: const Color(0xff4f9788)),
+                              ),
+                              Text("₹ ${list.rate.toString()}.00",
+                                  style: dmSans(
+                                      fcolor: const Color(0xffecae77),
+                                      fsize: 17,
+                                      fweight: FontWeight.w900)),
+                            ],
+                          ),
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -122,8 +137,28 @@ class PopularToolsListWidget extends StatelessWidget {
               separatorBuilder: (BuildContext context, int index) {
                 return kheight;
               },
-            )
-          : const Center(child: CupertinoActivityIndicator());
+            );
     });
   }
+
+  Widget buildMovieShimmer() => ListView.separated(
+      itemBuilder: ((context, index) {
+        return ListTile(
+          leading: const CustomWidget.rectangular(height: 120, width: 80),
+          title: Align(
+            alignment: Alignment.centerLeft,
+            child: CustomWidget.rectangular(
+              height: 16,
+              width: MediaQuery.of(context).size.width * 0.3,
+            ),
+          ),
+          subtitle: const CustomWidget.rectangular(height: 14),
+        );
+      }),
+      separatorBuilder: ((context, index) {
+        return const SizedBox(
+          height: 5,
+        );
+      }),
+      itemCount: 10);
 }

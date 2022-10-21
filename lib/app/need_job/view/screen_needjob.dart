@@ -41,7 +41,7 @@ class ScreenNeedJob extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Form(
-            key: provider.formKeys,
+            key: NeedJobPostProvider.validateKey,
             child: ListView(
               physics: const BouncingScrollPhysics(),
               children: [
@@ -124,7 +124,8 @@ class ScreenNeedJob extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        if (provider.formKeys.currentState!.validate()) {
+                        if (NeedJobPostProvider.validateKey.currentState!
+                            .validate()) {
                           provider.postJobData(context);
                         }
                       },

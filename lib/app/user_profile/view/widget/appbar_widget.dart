@@ -24,6 +24,9 @@ class AppbarWidget extends StatelessWidget {
         Container(
           height: size.height * .25,
           decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30)),
             color: kGreenColor,
           ),
         ),

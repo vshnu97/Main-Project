@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:main_project/app/lend_tools/payment/view_model/lend_post_payment.dart';
 import 'package:main_project/app/lend_tools/view_model/lend_provider.dart';
 import 'package:main_project/app/login/view_model/login.dart';
 import 'package:main_project/app/need_job/payment/view_model/post_payment.dart';
 import 'package:main_project/app/need_job/view_model/jobpost_post_provider.dart';
+import 'package:main_project/app/need_worker/payment/view_model/get_worker_payment.dart';
 import 'package:main_project/app/need_worker/view_model/need_worker_provider.dart';
 import 'package:main_project/app/rent_tools/payment/view_model/payment_provider.dart';
 import 'package:main_project/app/rent_tools/view_model/rent_all_provider.dart';
@@ -13,6 +15,7 @@ import 'package:main_project/app/splash_screen/view_model/splash_provider.dart';
 import 'package:main_project/app/user_profile/view_model/userprofile_provider.dart';
 import 'package:main_project/main.dart';
 import 'package:provider/provider.dart';
+
 
 class Providers {
   static GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
@@ -40,8 +43,13 @@ class Providers {
             create: ((context) => NeedJobPostProvider())),
         ChangeNotifierProvider<PostJobRazorpayProvider>(
             create: ((context) => PostJobRazorpayProvider())),
-            ChangeNotifierProvider<NeedWorkerProvider>(
+        ChangeNotifierProvider<NeedWorkerProvider>(
             create: ((context) => NeedWorkerProvider())),
+        ChangeNotifierProvider<GetWorkerRazorpayProvider>(
+            create: ((context) => GetWorkerRazorpayProvider())),
+            ChangeNotifierProvider<PostLendToolsRazorpayProvider>(
+            create: ((context) => PostLendToolsRazorpayProvider())),
+           
       ],
       child: const MyApp(),
     );
